@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API 연습</title>
+</head>
+
+<body>
+    <h1>API 호출 연습</h1>
+    <p id="key_value"></p>
+    <input id="key_name" type="search" value="여기에 검색할 Key를 입력">
+    <button id="start_button" type="button">검색</button>
+<script>
+    function search() {
+        let key_name = document.getElementById("key_name").value;
+        fetch("https://www.devyummi.com/api/v1/page?id=66cf194c4120c4455d5284cc")
+        .then((response) => response.json())
+        .then((data) => {
+            console.log(data);
+            document.getElementById("key_value").innerHTML = data.data[key_name];
+        });
+    }
+    document.getElementById("start_button").addEventListener('click', search);
+</script>
+</body>
+</html>
