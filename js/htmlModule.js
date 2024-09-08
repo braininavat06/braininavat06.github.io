@@ -22,7 +22,7 @@ body, h1, h2, h3, h4, h5, h6, p, span {
 
 "nav" : 
 `
-<link rel="stylesheet" href="../css/nav.css">
+<link rel="stylesheet" href="https://braininavat06.github.io/css/nav.css">
 
 <div class="nav_package">
     <a href="/"><img class="logo" src="https://braininavat06.github.io/img/medimory-logo.png" alt="메디모리 | Medimory"/></a>
@@ -32,7 +32,7 @@ body, h1, h2, h3, h4, h5, h6, p, span {
 
 "aside" : 
 `
-<link rel="stylesheet" href="../css/aside.css">
+<link rel="stylesheet" href="https://braininavat06.github.io/css/aside.css">
 
 <div class="aside_box">
     <h1>카테고리</h1>
