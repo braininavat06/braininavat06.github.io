@@ -25,7 +25,7 @@ body, h1, h2, h3, h4, h5, h6, p, span {
 <link rel="stylesheet" href="../css/nav.css">
 
 <div class="nav_package">
-    <a href="/"><img class="logo" src="/img/medimory-logo.png" alt="메디모리 | Medimory"/></a>
+    <a href="/"><img class="logo" src="https://braininavat06.github.io/img/medimory-logo.png" alt="메디모리 | Medimory"/></a>
     <h1><a class="logoText" href="/">메디모리</a></h1>
 </div>
 `,
