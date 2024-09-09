@@ -3,9 +3,8 @@
 <head>
     <div id="head"></div>
     <title>Medimory | 메디모리 글 쓰기</title>
-    <link rel="stylesheet" href="../css/post.css">
-
-    <link rel="stylesheet" href="../css/ckeditor.css">
+    <link id="post-css" rel="stylesheet" href="">
+    <link id="ckeditor-css" rel="stylesheet" href="">
 	<link rel="stylesheet" href="https://cdn.ckeditor.com/ckeditor5/43.1.0/ckeditor5.css">
 </head>
 <body>
@@ -48,16 +47,57 @@
 		}
     </script>
     
-    <script type="module" src="../js/ckeditor.js"></script>
+    <script type="module" id="ckeditor-module" src=""></script>
 
     <script type="module">
-        import { htmlModule } from "../js/htmlModule.js";
+        const isProduction = !(
+            window.location.hostname === 'localhost' ||
+            window.location.hostname === '127.0.0.1' ||
+            window.location.hostname === '::1'
+        );
+
+        function routeCheck(type, name, route) {
+            console.log(isProduction);
+            const baseURL = isProduction ? `https://braininavat06.github.io${route}` : `..${route}`;
+
+            if(type == "css") {
+                document.getElementById(`${name}`).href = baseURL;
+            } else if(type == "js") {
+                return baseURL;
+            } else if(type == "src") {
+                document.getElementById(`${name}`).src = baseURL;
+            }
+        }
+
+        let htmlModule;
+
+        async function loadModules() { 
+            var jsRoute = routeCheck("js", 0, "/js/htmlModule.js");
+            console.log(jsRoute);
+
+            try {
+                const module = await import(jsRoute);
+                htmlModule = module.htmlModule;
+            } catch (error) {
+                console.error("모듈 로드 실패 :", error);
+            }
+        }
+
         import { Editor } from "ckeditor5";
 
-        document.getElementById("head").innerHTML = htmlModule.head;
-        document.getElementById("nav").innerHTML = htmlModule.nav;
-        document.getElementById("aside").innerHTML = htmlModule.aside;
-        document.getElementById("footer").innerHTML = htmlModule.footer;
+        loadModules()
+            .then(() => {
+                routeCheck("src", "ckeditor-module", "/js/ckeditor.js");
+                routeCheck("css", "post-css", "/css/post.css");
+                routeCheck("css", "ckeditor-css", "/css/ckeditor.css");
+                document.getElementById("head").innerHTML = htmlModule.head;
+                document.getElementById("nav").innerHTML = htmlModule.nav;
+                routeCheck("css", "nav-css", "/css/nav.css");
+                routeCheck("src", "logo", "/img/medimory-logo.png");
+                document.getElementById("aside").innerHTML = htmlModule.aside;
+                routeCheck("css", "aside-css", "/css/aside.css");
+                document.getElementById("footer").innerHTML = htmlModule.footer;
+            });
 
         document.getElementById("submit").addEventListener("click", () => {
         var title = document.getElementById("title").value;

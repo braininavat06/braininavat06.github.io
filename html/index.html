@@ -24,25 +24,51 @@
     <footer id="footer"></footer>
 
     <script type="module">
+        const isProduction = !(
+            window.location.hostname === 'localhost' ||
+            window.location.hostname === '127.0.0.1' ||
+            window.location.hostname === '::1'
+        );
+
         function routeCheck(type, name, route) {
-            const isProduction = window.location.hostname !== 'localhost';
+            console.log(isProduction);
             const baseURL = isProduction ? `https://braininavat06.github.io${route}` : `..${route}`;
 
             if(type == "css") {
                 document.getElementById(`${name}`).href = baseURL;
             } else if(type == "js") {
                 return baseURL;
+            } else if(type == "src") {
+                document.getElementById(`${name}`).src = baseURL;
             }
         }
-        var jsRoute = routeCheck(js, 0, /js/htmlModule.js);
-        routeCheck(css, main-css, /css/main.css);
 
-        import {htmlModule} from `${jsRoute}`;
+        let htmlModule;
+
+        async function loadModules() { 
+            var jsRoute = routeCheck("js", 0, "/js/htmlModule.js");
+            console.log(jsRoute);
+
+            try {
+                const module = await import(jsRoute);
+                htmlModule = module.htmlModule;
+            } catch (error) {
+                console.error("모듈 로드 실패 :", error);
+            }
+        }
+
+        loadModules()
+            .then(() => {
+                routeCheck("css", "main-css", "/css/main.css");
+                document.getElementById("head").innerHTML = htmlModule.head;
+                document.getElementById("nav").innerHTML = htmlModule.nav;
+                routeCheck("css", "nav-css", "/css/nav.css");
+                routeCheck("src", "logo", "/img/medimory-logo.png");
+                document.getElementById("aside").innerHTML = htmlModule.aside;
+                routeCheck("css", "aside-css", "/css/aside.css");
+                document.getElementById("footer").innerHTML = htmlModule.footer;
+            });
         
-        document.getElementById("head").innerHTML = htmlModule.head;
-        document.getElementById("nav").innerHTML = htmlModule.nav;
-        document.getElementById("aside").innerHTML = htmlModule.aside;
-        document.getElementById("footer").innerHTML = htmlModule.footer;
     </script>
 </body>
 </html>

@@ -22,19 +22,16 @@ body, h1, h2, h3, h4, h5, h6, p, span {
 "nav" : 
 `
 <link id="nav-css" rel="stylesheet" href="">
-<script>
-    routeCheck(css, nav-css, /css/nav.css);
-</script>
 
 <div class="nav_package">
-    <a href="/"><img class="logo" src="../img/medimory-logo.png" alt="메디모리 | Medimory"/></a>
+    <a href="/"><img id="logo" src="" alt="메디모리 | Medimory"/></a>
     <h1><a class="logoText" href="/">메디모리</a></h1>
 </div>
 `,
 
 "aside" : 
 `
-<link id="aside-css" rel="stylesheet" href="../css/aside.css">
+<link id="aside-css" rel="stylesheet" href="">
 
 <div class="aside_box">
     <h1>카테고리</h1>

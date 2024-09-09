@@ -64,7 +64,7 @@ nav .nav_package {
     padding-right: 0;
 }
 
-nav .logo {
+nav #logo {
     margin : 0;
     padding-left : 10px;
     height : var(--nav-height);
