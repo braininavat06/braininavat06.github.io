@@ -98,6 +98,11 @@ const editorConfig = {
 		],
 		shouldNotGroupWhenFull: true
 	},
+	ui : {
+		vieportOffset : {
+			top : 45
+		}
+	},
 	plugins: [
 		AccessibilityHelp,
 		Alignment,
