@@ -3,7 +3,7 @@
 <head>
     <div id="head"></div>
     <title>Medimory | 메디모리</title>
-    <link rel="stylesheet" href="../css/main.css">
+    <link id="main-css" rel="stylesheet" href="">
 </head>
 <body>
     <nav id="nav"></nav>
@@ -24,7 +24,20 @@
     <footer id="footer"></footer>
 
     <script type="module">
-        import {htmlModule} from "../js/htmlModule.js";
+        function routeCheck(type, name, route) {
+            const isProduction = window.location.hostname !== 'localhost';
+            const baseURL = isProduction ? `https://braininavat06.github.io${route}` : `..${route}`;
+
+            if(type == "css") {
+                document.getElementById(`${name}`).href = baseURL;
+            } else if(type == "js") {
+                return baseURL;
+            }
+        }
+        var jsRoute = routeCheck(js, 0, /js/htmlModule.js);
+        routeCheck(css, main-css, /css/main.css);
+
+        import {htmlModule} from `${jsRoute}`;
         
         document.getElementById("head").innerHTML = htmlModule.head;
         document.getElementById("nav").innerHTML = htmlModule.nav;
