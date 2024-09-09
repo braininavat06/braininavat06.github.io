@@ -33,9 +33,6 @@
     }
 
     .sectionBody {
-        overflow : hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
         background-color : white;
         width : calc(100% - 60px);
         margin : 20px;
@@ -67,9 +64,6 @@
     }
 
     .sectionBody {
-        overflow : hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
         background-color : white;
         width : calc(100% - 60px);
         margin : 20px;
@@ -88,3 +82,14 @@ section {
     margin : 0 auto;
 }
 
+.inputBody {
+	display : flex;
+}
+
+.inputBody h3 {
+    margin : 0 10px 0 0;
+}
+
+.inputBody input {
+    width : 80%;
+}

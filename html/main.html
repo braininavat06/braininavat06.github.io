@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="kor">
+<head>
+    <div id="head"></div>
+    <title>Medimory | 메디모리</title>
+    <link rel="stylesheet" href="../css/main.css">
+</head>
+<body>
+    <nav id="nav"></nav>
+    <div class="section_package">
+        <aside id="aside"></aside>
+        <section id="section">
+            <div class="section_box">
+                <div class="1 sectionBody">
+                    <h1>최신 글</h1>
+                    <hr>
+                </div>
+                <div class="2 sectionBody">
+                    <button id="writePage" onclick="location.href='https://www.medimory.com/post'">글 쓰기</button>
+                </div>
+            </div>
+        </section>
+    </div>
+    <footer id="footer"></footer>
+
+    <script type="module">
+        import {htmlModule} from "../js/htmlModule.js";
+        
+        document.getElementById("head").innerHTML = htmlModule.head;
+        document.getElementById("nav").innerHTML = htmlModule.nav;
+        document.getElementById("aside").innerHTML = htmlModule.aside;
+        document.getElementById("footer").innerHTML = htmlModule.footer;
+    </script>
+</body>
+</html>

@@ -22,17 +22,17 @@ body, h1, h2, h3, h4, h5, h6, p, span {
 
 "nav" : 
 `
-<link rel="stylesheet" href="https://braininavat06.github.io/css/nav.css">
+<link rel="stylesheet" href="../css/nav.css">
 
 <div class="nav_package">
-    <a href="/"><img class="logo" src="https://braininavat06.github.io/img/medimory-logo.png" alt="메디모리 | Medimory"/></a>
+    <a href="/"><img class="logo" src="../img/medimory-logo.png" alt="메디모리 | Medimory"/></a>
     <h1><a class="logoText" href="/">메디모리</a></h1>
 </div>
 `,
 
 "aside" : 
 `
-<link rel="stylesheet" href="https://braininavat06.github.io/css/aside.css">
+<link rel="stylesheet" href="../css/aside.css">
 
 <div class="aside_box">
     <h1>카테고리</h1>
@@ -44,7 +44,7 @@ body, h1, h2, h3, h4, h5, h6, p, span {
 "footer" :
 `
 <hr>
-대충 footer 자리
+footer
 `
 
 }
