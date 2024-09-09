@@ -98,9 +98,6 @@ const editorConfig = {
 		],
 		shouldNotGroupWhenFull: true
 	},
-	stickyToolbar: {
-		shouldStick: true
-	},
 	plugins: [
 		AccessibilityHelp,
 		Alignment,
