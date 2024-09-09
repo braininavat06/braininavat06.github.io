@@ -47,7 +47,7 @@
 		}
     </script>
     
-    <script id="ckeditor-module" type="module" src=""></script>
+    <script id="ckeditor-module" type="module" src="https://braininavat06.github.io/js/ckeditor.js"></script>
 
     <script type="module">
         const isProduction = !(
@@ -86,7 +86,6 @@
 
         loadModules()
             .then(() => {
-                routeCheck("src", "ckeditor-module", "/js/ckeditor.js");
                 routeCheck("css", "ckeditor-css", "/css/ckeditor.css");
                 routeCheck("css", "post-css", "/css/post.css");
                 document.getElementById("head").innerHTML = htmlModule.head;
