@@ -98,10 +98,8 @@ const editorConfig = {
 		],
 		shouldNotGroupWhenFull: true
 	},
-	ui : {
-		vieportOffset : {
-			top : 45
-		}
+	stickyToolbar: {
+		shouldStick: true
 	},
 	plugins: [
 		AccessibilityHelp,
