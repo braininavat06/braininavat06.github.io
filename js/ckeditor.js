@@ -79,7 +79,6 @@ const editorConfig = {
 			'subscript',
 			'superscript',
 			'|',
-			'specialCharacters',
 			'horizontalLine',
 			'link',
 			'insertImage',

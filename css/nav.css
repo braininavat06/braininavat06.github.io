@@ -43,7 +43,7 @@
 
 /* 공통 */
 body {
-    padding-top : 45px;
+    padding-top : var(--nav-height);
 }
 
 nav {
