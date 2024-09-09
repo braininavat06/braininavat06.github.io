@@ -47,7 +47,7 @@
 		}
     </script>
     
-    <script type="module" id="ckeditor-module" src=""></script>
+    <script id="ckeditor-module" type="module" src=""></script>
 
     <script type="module">
         const isProduction = !(
@@ -57,7 +57,6 @@
         );
 
         function routeCheck(type, name, route) {
-            console.log(isProduction);
             const baseURL = isProduction ? `https://braininavat06.github.io${route}` : `..${route}`;
 
             if(type == "css") {
@@ -88,8 +87,8 @@
         loadModules()
             .then(() => {
                 routeCheck("src", "ckeditor-module", "/js/ckeditor.js");
-                routeCheck("css", "post-css", "/css/post.css");
                 routeCheck("css", "ckeditor-css", "/css/ckeditor.css");
+                routeCheck("css", "post-css", "/css/post.css");
                 document.getElementById("head").innerHTML = htmlModule.head;
                 document.getElementById("nav").innerHTML = htmlModule.nav;
                 routeCheck("css", "nav-css", "/css/nav.css");
