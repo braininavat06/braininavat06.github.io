@@ -40,7 +40,6 @@ import {
 	PasteFromOffice,
 	SelectAll,
 	SourceEditing,
-	SpecialCharacters,
 	Strikethrough,
 	Subscript,
 	Superscript,
