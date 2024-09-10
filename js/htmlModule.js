@@ -47,7 +47,7 @@ footer
 `,
 
 "version" :
-`2`
+`3`
 }
 
 
