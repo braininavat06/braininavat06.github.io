@@ -75,7 +75,7 @@
                     return response.json();
                 })
                 .then((data) => {
-                    const table = data.Item;
+                    const table = data.Items[0];
                     if(table != null) {
                         var title = table.Title;
                         var time = table.Time;
