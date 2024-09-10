@@ -91,7 +91,7 @@
         async function loadPage(){
             await loadModules();
 
-            routeCheck("css", "main-css", "/css/main.css?v=" + htmlModule.version);
+            routeCheck("css", "post-css", "/css/post.css?v=" + htmlModule.version);
             document.getElementById("head").innerHTML = htmlModule.head;
             document.getElementById("nav").innerHTML = htmlModule.nav;
             routeCheck("css", "nav-css", "/css/nav.css?v=" + htmlModule.version);
