@@ -21,7 +21,7 @@ body, h1, h2, h3, h4, h5, h6, p, span {
 
 "nav" : 
 `
-<link id="nav-css" rel="stylesheet" href="">
+<link id="nav-css" rel="stylesheet" href="" crossorigin="anonymous">
 
 <div class="nav_package">
     <a href="/"><img id="logo" src="" alt="메디모리 | Medimory"/></a>
@@ -31,7 +31,7 @@ body, h1, h2, h3, h4, h5, h6, p, span {
 
 "aside" : 
 `
-<link id="aside-css" rel="stylesheet" href="">
+<link id="aside-css" rel="stylesheet" href="" crossorigin="anonymous">
 
 <div class="aside_box">
     <h1>카테고리</h1>
