@@ -39,6 +39,7 @@
         width : calc(100% - 100px);
         margin : 20px;
         padding : 30px;
+        line-height : 210%;
     }
 }
 
@@ -72,6 +73,7 @@
         width : calc(100% - 100px);
         margin : 20px;
         padding : 30px;
+        line-height : 210%;
     }
 }
 
