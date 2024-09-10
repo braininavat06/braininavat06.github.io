@@ -50,7 +50,7 @@
         let htmlModule;
 
         async function loadModules() { 
-            var jsRoute = routeCheck("js", 0, "/js/htmlModule.js");
+            var jsRoute = routeCheck("js", 0, "/js/htmlModule.js?v=" + htmlModule.version);
 
             try {
                 const module = await import(jsRoute);
@@ -91,25 +91,39 @@
                 .catch((e) => console.log(e))
         }
         
-        await readPage();
+        
 
-        loadModules()
-            .then(() => {
-                routeCheck("css", "page-css", "/css/page.css");
-                document.getElementById("head").innerHTML = htmlModule.head;
-                document.getElementById("nav").innerHTML = htmlModule.nav;
-                routeCheck("css", "nav-css", "/css/nav.css");
-                routeCheck("src", "logo", "/img/medimory-logo.png");
-                document.getElementById("aside").innerHTML = htmlModule.aside;
-                routeCheck("css", "aside-css", "/css/aside.css");
-                document.getElementById("footer").innerHTML = htmlModule.footer;
-            })
-            .then(() => {
-                setTimeout(() => {document.body.classList.remove("hidden");}, 1000);
+        async function loadPage(){
+            await loadModules();
+
+            routeCheck("css", "main-css", "/css/main.css?v=" + htmlModule.version);
+            document.getElementById("head").innerHTML = htmlModule.head;
+            document.getElementById("nav").innerHTML = htmlModule.nav;
+            routeCheck("css", "nav-css", "/css/nav.css?v=" + htmlModule.version);
+            routeCheck("src", "logo", "/img/medimory-logo.png");
+            document.getElementById("aside").innerHTML = htmlModule.aside;
+            routeCheck("css", "aside-css", "/css/aside.css?v=" + htmlModule.version);
+            document.getElementById("footer").innerHTML = htmlModule.footer;
+
+            
+
+            await new Promise(resolve => {
+                const cssLoaded = () => {
+                    const link = document.getElementById("page-css");
+                    if (link.sheet && link.sheet.cssRules.length > 0) {
+                        resolve();
+                    } else {
+                        setTimeout(cssLoaded, 100);
+                    }
+                };
+                cssLoaded();
             });
 
-        
-        
+            document.body.classList.remove("hidden")
+            await readPage();
+        }
+
+        loadPage();
     </script>
 </body>
 </html>

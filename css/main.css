@@ -98,14 +98,14 @@ ul {
 }
 
 .post-container {
-    background-color: var(--brighter);
-    margin: 15px;
+    background-color: white;
+    margin: 0px 15px;
     overflow : hidden;
     cursor: pointer;
 }
 
 .post-title {
-    margin : 10px 10px;
+    margin : 20px 10px 10px 10px;
     font-size : 20px;
     font-weight : bold;
     overflow: hidden;
@@ -121,4 +121,9 @@ ul {
 
 .post-container:hover > .post-title {
     text-decoration: underline;
+}
+
+.post-container hr {
+    margin-top : 20px;
+    margin-bottom : 0px;
 }

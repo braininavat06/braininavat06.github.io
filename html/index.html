@@ -26,6 +26,7 @@
                                 <p class="post-title"></p>
                                 <p class="post-time"></p>
                             </div>
+                            </hr>
                         </li>
                     </ul>
                 </div>
@@ -110,37 +111,46 @@
                 postTitle.textContent = items[i].Title;
                 postTime.textContent = `작성 시간 : ${items[i].Time}`;
 
-                postContainer.append(postTitle, postTime);
+                const hr = document.createElement('hr');
+
+                postContainer.append(postTitle, postTime, hr);
                 li.append(postContainer);
                 ul.append(li);
             }
         }
 
-        loadModules()
-            .then(() => {
-                routeCheck("css", "main-css", "/css/main.css");
-                document.getElementById("head").innerHTML = htmlModule.head;
-                document.getElementById("nav").innerHTML = htmlModule.nav;
-                routeCheck("css", "nav-css", "/css/nav.css");
-                routeCheck("src", "logo", "/img/medimory-logo.png");
-                document.getElementById("aside").innerHTML = htmlModule.aside;
-                routeCheck("css", "aside-css", "/css/aside.css");
-                document.getElementById("footer").innerHTML = htmlModule.footer;
-            })
-            .then(() => {
-                setTimeout(() => {document.body.classList.remove("hidden");}, 1000);
-            })
-            .then(() => {
-                const items = readList();
-                return items;
-            })
-            .then((items) => {
-                document.getElementById("loading").innerHTML = "";
-                calcMain(items);
-            })
-            
+        async function loadPage(){
+            await loadModules();
 
-        
+            routeCheck("css", "main-css", "/css/main.css?v=" + htmlModule.version);
+            document.getElementById("head").innerHTML = htmlModule.head;
+            document.getElementById("nav").innerHTML = htmlModule.nav;
+            routeCheck("css", "nav-css", "/css/nav.css?v=" + htmlModule.version);
+            routeCheck("src", "logo", "/img/medimory-logo.png");
+            document.getElementById("aside").innerHTML = htmlModule.aside;
+            routeCheck("css", "aside-css", "/css/aside.css?v=" + htmlModule.version);
+            document.getElementById("footer").innerHTML = htmlModule.footer;
+
+            await new Promise(resolve => {
+                const cssLoaded = () => {
+                    const link = document.getElementById("main-css");
+                    if (link.sheet && link.sheet.cssRules.length > 0) {
+                        resolve();
+                    } else {
+                        setTimeout(cssLoaded, 100);
+                    }
+                };
+                cssLoaded();
+            });
+
+            document.body.classList.remove("hidden")
+                  
+            const items = await readList();
+            document.getElementById("loading").innerHTML = "";
+            calcMain(items);
+        }
+
+        loadPage();
     </script>
 </body>
 </html>

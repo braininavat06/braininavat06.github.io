@@ -7,9 +7,9 @@
     <link id="ckeditor-css" rel="stylesheet" href="">
 	<link rel="stylesheet" href="https://cdn.ckeditor.com/ckeditor5/43.1.0/ckeditor5.css">
     <style>
-        body.hidden {
+        /* body.hidden {
             display: none;
-        }
+        } */
     </style>
 </head>
 <body class="hidden">
@@ -76,7 +76,7 @@
         let htmlModule;
 
         async function loadModules() { 
-            var jsRoute = routeCheck("js", 0, "/js/htmlModule.js");
+            var jsRoute = routeCheck("js", 0, "/js/htmlModule.js?v=" + htmlModule.version);
 
             try {
                 const module = await import(jsRoute);
@@ -88,21 +88,34 @@
 
         import { Editor } from "ckeditor5";
 
-        loadModules()
-            .then(() => {
-                routeCheck("css", "ckeditor-css", "/css/ckeditor.css");
-                routeCheck("css", "post-css", "/css/post.css");
-                document.getElementById("head").innerHTML = htmlModule.head;
-                document.getElementById("nav").innerHTML = htmlModule.nav;
-                routeCheck("css", "nav-css", "/css/nav.css");
-                routeCheck("src", "logo", "/img/medimory-logo.png");
-                document.getElementById("aside").innerHTML = htmlModule.aside;
-                routeCheck("css", "aside-css", "/css/aside.css");
-                document.getElementById("footer").innerHTML = htmlModule.footer;
-            })
-            .then(() => {
-                setTimeout(() => {document.body.classList.remove("hidden");}, 1000);
+        async function loadPage(){
+            await loadModules();
+
+            routeCheck("css", "main-css", "/css/main.css?v=" + htmlModule.version);
+            document.getElementById("head").innerHTML = htmlModule.head;
+            document.getElementById("nav").innerHTML = htmlModule.nav;
+            routeCheck("css", "nav-css", "/css/nav.css?v=" + htmlModule.version);
+            routeCheck("src", "logo", "/img/medimory-logo.png");
+            document.getElementById("aside").innerHTML = htmlModule.aside;
+            routeCheck("css", "aside-css", "/css/aside.css?v=" + htmlModule.version);
+            document.getElementById("footer").innerHTML = htmlModule.footer;
+
+            await new Promise(resolve => {
+                const cssLoaded = () => {
+                    const link = document.getElementById("post-css");
+                    if (link.sheet && link.sheet.cssRules.length > 0) {
+                        resolve();
+                    } else {
+                        setTimeout(cssLoaded, 100);
+                    }
+                };
+                cssLoaded();
             });
+
+            document.body.classList.remove("hidden")
+        }
+
+        loadPage();
 
         document.getElementById("submit").addEventListener("click", () => {
             var title = document.getElementById("title").value;
