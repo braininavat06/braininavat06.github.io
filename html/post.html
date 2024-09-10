@@ -6,8 +6,13 @@
     <link id="post-css" rel="stylesheet" href="">
     <link id="ckeditor-css" rel="stylesheet" href="">
 	<link rel="stylesheet" href="https://cdn.ckeditor.com/ckeditor5/43.1.0/ckeditor5.css">
+    <style>
+        body.hidden {
+            display: none;
+        }
+    </style>
 </head>
-<body>
+<body class="hidden">
     <nav id="nav"></nav>
     <div class="section_package">
         <aside id="aside"></aside>
@@ -72,7 +77,6 @@
 
         async function loadModules() { 
             var jsRoute = routeCheck("js", 0, "/js/htmlModule.js");
-            console.log(jsRoute);
 
             try {
                 const module = await import(jsRoute);
@@ -95,6 +99,9 @@
                 document.getElementById("aside").innerHTML = htmlModule.aside;
                 routeCheck("css", "aside-css", "/css/aside.css");
                 document.getElementById("footer").innerHTML = htmlModule.footer;
+            })
+            .then(() => {
+                setTimeout(() => {document.body.classList.remove("hidden");}, 100);
             });
 
         document.getElementById("submit").addEventListener("click", () => {
@@ -110,14 +117,17 @@
                 return JSON.stringify(requestBody);
             }
         
-            async function writePage() {
+            async function writePage(title, content) {
                 var requestBody = await makeRequest(title, content);
                 fetch("https://www.medimory.com/api/v1/post_process", {
                         method : "POST",
                         body : requestBody
                     })
-                        .then((response) => console.log(response))
-                        .catch(() => {console.log("글 업로드에 실패했습니다.")});
+                        .then((response) => {return response.text();})
+                        .then((data) => {
+                            location.replace(`https://www.medimory.com/page?Id=${data}`);
+                        })
+                        .catch((e) => {console.log(e)});
             }
 
             if(title == 0) {

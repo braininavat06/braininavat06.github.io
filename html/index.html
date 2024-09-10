@@ -4,8 +4,13 @@
     <div id="head"></div>
     <title>Medimory | 메디모리</title>
     <link id="main-css" rel="stylesheet" href="">
+    <style>
+        body.hidden {
+            display: none;
+        }
+    </style>
 </head>
-<body>
+<body class="hidden">
     <nav id="nav"></nav>
     <div class="section_package">
         <aside id="aside"></aside>
@@ -46,7 +51,6 @@
 
         async function loadModules() { 
             var jsRoute = routeCheck("js", 0, "/js/htmlModule.js");
-            console.log(jsRoute);
 
             try {
                 const module = await import(jsRoute);
@@ -66,6 +70,9 @@
                 document.getElementById("aside").innerHTML = htmlModule.aside;
                 routeCheck("css", "aside-css", "/css/aside.css");
                 document.getElementById("footer").innerHTML = htmlModule.footer;
+            })
+            .then(() => {
+                setTimeout(() => {document.body.classList.remove("hidden");}, 100);
             });
         
     </script>
