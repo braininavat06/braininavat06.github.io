@@ -88,3 +88,37 @@ section {
     margin : 0 auto;
 }
 
+li {
+    list-style-type: none;
+}
+
+ul {
+    margin : 0 auto;
+    padding : 0;
+}
+
+.post-container {
+    background-color: var(--brighter);
+    margin: 15px;
+    overflow : hidden;
+    cursor: pointer;
+}
+
+.post-title {
+    margin : 10px 10px;
+    font-size : 20px;
+    font-weight : bold;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    word-break: break-all;
+}
+
+.post-time {
+    margin : 10px 10px;
+    font-size : 16px;
+}
+
+.post-container:hover > .post-title {
+    text-decoration: underline;
+}
