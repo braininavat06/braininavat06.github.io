@@ -35,7 +35,6 @@
     .sectionBody {
         overflow : hidden;
         text-overflow: ellipsis;
-        white-space: nowrap;
         background-color : white;
         width : calc(100% - 60px);
         margin : 20px;
@@ -69,7 +68,6 @@
     .sectionBody {
         overflow : hidden;
         text-overflow: ellipsis;
-        white-space: nowrap;
         background-color : white;
         width : calc(100% - 60px);
         margin : 20px;
