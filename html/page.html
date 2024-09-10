@@ -3,7 +3,7 @@
 <head>
     <div id="head"></div>
     <title>Medimory | 메디모리</title>
-    <link rel="stylesheet" href="../css/page.css">
+    <link id="page-css" rel="stylesheet" href="">
 </head>
 <body>
     <nav id="nav"></nav>
@@ -12,32 +12,97 @@
         <section id="section">
             <div class="section_box">
                 <div class="1 sectionBody">
-                    <h1>최신 글</h1>
+                    <h1 id="title"></h1>
                     <hr>
+                    <div id="time"></div>
+                </div>
+                <div class="2 sectionBody" id="content">
                 </div>
             </div>
         </section>
     </div>
     <footer id="footer"></footer>
 
-    <script type="importmap">
-		{
-			"imports": {
-				"ckeditor5": "https://cdn.ckeditor.com/ckeditor5/43.1.0/ckeditor5.js",
-				"ckeditor5/": "https://cdn.ckeditor.com/ckeditor5/43.1.0/"
-			}
-		}
-    </script>
-
     <script type="module">
-        import {htmlModule} from "../js/htmlModule.js";
+        const isProduction = !(
+            window.location.hostname === 'localhost' ||
+            window.location.hostname === '127.0.0.1' ||
+            window.location.hostname === '::1'
+        );
+
+        function routeCheck(type, name, route) {
+            const baseURL = isProduction ? `https://braininavat06.github.io${route}` : `..${route}`;
+
+            if(type == "css") {
+                document.getElementById(`${name}`).href = baseURL;
+            } else if(type == "js") {
+                return baseURL;
+            } else if(type == "src") {
+                document.getElementById(`${name}`).src = baseURL;
+            }
+        }
+
+        let htmlModule;
+
+        async function loadModules() { 
+            var jsRoute = routeCheck("js", 0, "/js/htmlModule.js");
+
+            try {
+                const module = await import(jsRoute);
+                htmlModule = module.htmlModule;
+            } catch (error) {
+                console.error("모듈 로드 실패 :", error);
+            }
+        }
+
+        async function getQuery() {
+            const params = new URLSearchParams(window.location.search).get("Id");
+            return params;
+        }
+
+        async function readPage(){
+            const params = await getQuery();
+            fetch("https://www.medimory.com/api/v1/read", {
+                method: "POST",
+                body: params
+            })
+                .then((response) => {
+                    console.log(response);
+                    return response.json();
+                })
+                .then((data) => {
+                    const table = data.Item;
+                    if(table != null) {
+                        var title = table.Title;
+                        var time = table.Time;
+                        var content = table.Content;
+                        
+                        document.getElementById("title").innerHTML = title;
+                        document.getElementById("time").innerHTML = `작성 시간 : ${time}`;
+                        document.getElementById("content").innerHTML = content;
+                    } else {
+                        var content = "글을 불러올 수 없습니다.";
+                    }
+                })
+                .catch((e) => console.log(e))
+        }
         
-        document.getElementById("head").innerHTML = htmlModule.head;
-        document.getElementById("nav").innerHTML = htmlModule.nav;
-        document.getElementById("aside").innerHTML = htmlModule.aside;
-        document.getElementById("footer").innerHTML = htmlModule.footer;
+        await readPage();
+
+        loadModules()
+            .then(() => {
+                routeCheck("css", "page-css", "/css/main.css");
+                document.getElementById("head").innerHTML = htmlModule.head;
+                document.getElementById("nav").innerHTML = htmlModule.nav;
+                routeCheck("css", "nav-css", "/css/nav.css");
+                routeCheck("src", "logo", "/img/medimory-logo.png");
+                document.getElementById("aside").innerHTML = htmlModule.aside;
+                routeCheck("css", "aside-css", "/css/aside.css");
+                document.getElementById("footer").innerHTML = htmlModule.footer;
+            });
+
+        
+        
     </script>
-
-
 </body>
 </html>
