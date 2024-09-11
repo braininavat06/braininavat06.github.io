@@ -7,9 +7,9 @@
     <link id="ckeditor-css" rel="stylesheet" href="" crossorigin="anonymous">
 	<link rel="stylesheet" href="https://cdn.ckeditor.com/ckeditor5/43.1.0/ckeditor5.css">
     <style>
-        /* body.hidden {
+        body.hidden {
             display: none;
-        } */
+        }
     </style>
 </head>
 <body class="hidden">
@@ -55,6 +55,8 @@
     <script id="ckeditor-module" type="module" src="https://braininavat06.github.io/js/ckeditor.js"></script>
 
     <script type="module">
+        import { Editor } from "ckeditor5";
+
         const isProduction = !(
             window.location.hostname === 'localhost' ||
             window.location.hostname === '127.0.0.1' ||
@@ -85,37 +87,6 @@
                 console.error("모듈 로드 실패 :", error);
             }
         }
-
-        import { Editor } from "ckeditor5";
-
-        async function loadPage(){
-            await loadModules();
-
-            routeCheck("css", "post-css", "/css/post.css?v=" + htmlModule.version);
-            document.getElementById("head").innerHTML = htmlModule.head;
-            document.getElementById("nav").innerHTML = htmlModule.nav;
-            routeCheck("css", "nav-css", "/css/nav.css?v=" + htmlModule.version);
-            routeCheck("src", "logo", "/img/medimory-logo.png");
-            document.getElementById("aside").innerHTML = htmlModule.aside;
-            routeCheck("css", "aside-css", "/css/aside.css?v=" + htmlModule.version);
-            document.getElementById("footer").innerHTML = htmlModule.footer;
-
-            await new Promise(resolve => {
-                const cssLoaded = () => {
-                    const link = document.getElementById("post-css");
-                    if (link.sheet && link.sheet.cssRules.length > 0) {
-                        resolve();
-                    } else {
-                        setTimeout(cssLoaded, 100);
-                    }
-                };
-                cssLoaded();
-            });
-
-            document.body.classList.remove("hidden")
-        }
-
-        loadPage();
 
         document.getElementById("submit").addEventListener("click", () => {
             var title = document.getElementById("title").value;
@@ -164,6 +135,35 @@
                 })
                 .catch(() => {console.log("알 수 없는 오류");})
         });
+
+        async function loadPage(){
+            await loadModules();
+
+            routeCheck("css", "post-css", "/css/post.css?v=" + htmlModule.version);
+            document.getElementById("head").innerHTML = htmlModule.head;
+            document.getElementById("nav").innerHTML = htmlModule.nav;
+            routeCheck("css", "nav-css", "/css/nav.css?v=" + htmlModule.version);
+            routeCheck("src", "logo", "/img/medimory-logo.png");
+            document.getElementById("aside").innerHTML = htmlModule.aside;
+            routeCheck("css", "aside-css", "/css/aside.css?v=" + htmlModule.version);
+            document.getElementById("footer").innerHTML = htmlModule.footer;
+
+            await new Promise(resolve => {
+                const cssLoaded = () => {
+                    const link = document.getElementById("aside-css");
+                    if (link.sheet && link.sheet.cssRules.length > 0) {
+                        resolve();
+                    } else {
+                        setTimeout(cssLoaded, 100);
+                    }
+                };
+                cssLoaded();
+            });
+
+            document.body.classList.remove("hidden")
+        }
+
+        loadPage();
     </script>
 </body>
 </html>

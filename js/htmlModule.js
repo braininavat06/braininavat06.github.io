@@ -10,7 +10,7 @@ var htmlModule = {
 <!-- 전역 글꼴(나눔 고딕) -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap" rel="stylesheet">
+<link id="google-css" href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap" rel="stylesheet">
 
 <style>
 body, h1, h2, h3, h4, h5, h6, p, span {
@@ -47,7 +47,7 @@ footer
 `,
 
 "version" :
-`5`
+`6`
 }
 
 

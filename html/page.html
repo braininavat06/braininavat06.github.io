@@ -21,8 +21,7 @@
                     <hr>
                     <div id="time"></div>
                 </div>
-                <div class="2 sectionBody" id="content">
-                </div>
+                <div class="2 sectionBody" id="content">로딩중...</div>
             </div>
         </section>
     </div>
@@ -104,8 +103,6 @@
             document.getElementById("aside").innerHTML = htmlModule.aside;
             routeCheck("css", "aside-css", "/css/aside.css?v=" + htmlModule.version);
             document.getElementById("footer").innerHTML = htmlModule.footer;
-
-            
 
             await new Promise(resolve => {
                 const cssLoaded = () => {

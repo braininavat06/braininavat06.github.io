@@ -19,7 +19,7 @@
                 <div class="1 sectionBody">
                     <h1>최신 글</h1>
                     <hr>
-                    <div id="loading">로딩중....</div>
+                    <div id="loading">로딩중...</div>
                     <ul id="post-ul">
                         <li class="post-list">
                             <div class="post-container" style="display : none">
@@ -77,8 +77,6 @@
 
             const table = await response.json();
             const items = table.Items;
-
-            console.log(items);
 
             return items;
         }
