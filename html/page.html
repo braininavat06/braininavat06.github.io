@@ -20,6 +20,7 @@
                     <h1 id="title"></h1>
                     <hr>
                     <div id="time"></div>
+                    <button id="delete">삭제</button>
                 </div>
                 <div class="2 sectionBody" id="content">로딩중...</div>
             </div>
@@ -59,8 +60,9 @@
             }
         }
 
+        
         async function getQuery() {
-            const params = new URLSearchParams(window.location.search).get("Id");
+            const params = new URLSearchParams(window.location.search).get("id");
             return params;
         }
 
@@ -84,11 +86,45 @@
                         document.getElementById("time").innerHTML = `작성 시간 : ${time}`;
                         document.getElementById("content").innerHTML = content;
                     } else {
-                        var content = "글을 불러올 수 없습니다.";
+                        var content = "존재하지 않는 글이거나 서버 오류입니다.";
+                        document.getElementById("content").innerHTML = content;
                     }
                 })
-                .catch((e) => console.log(e))
+                .catch((e) => {
+                    var content = "존재하지 않는 글이거나 서버 오류입니다.";
+                    document.getElementById("content").innerHTML = content;
+                })
         }
+
+        async function deletePage() {
+            const params = await getQuery();
+            fetch("https://www.medimory.com/api/v1/delete", {
+                method: "POST",
+                body: params
+            })
+        }
+
+
+        document.getElementById("delete").addEventListener("click", () => {
+            var password = prompt("비밀번호를 입력하세요.");
+
+            fetch("https://www.medimory.com/api/v1/password_check", {
+                method: "POST",
+                body: password
+            })
+                .then((response) => {
+                    return response.text();
+                })
+                .then((data) => {
+                    if(data == "success") {
+                        deletePage()
+                            .then(() => {location.replace(`https://www.medimory.com/`);});                        
+                    } else {
+                        alert("비밀번호가 일치하지 않습니다.")
+                    }
+                })
+                .catch(() => {console.log("알 수 없는 오류");})
+        });
         
         
 
@@ -117,7 +153,7 @@
             });
 
             document.body.classList.remove("hidden")
-            await readPage();
+            readPage();
         }
 
         loadPage();
