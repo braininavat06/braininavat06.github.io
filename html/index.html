@@ -110,12 +110,12 @@
                 postTime.className = "post-time";
 
                 postTitle.textContent = items[i].Title;
-                postCategory.textContent = `카테고리 : ${items[i].Category}`;
+                postCategory.textContent = `<${items[i].Category}>`;
                 postTime.textContent = `작성 시간 : ${items[i].Time}`;
 
                 const hr = document.createElement('hr');
 
-                postContainer.append(postTitle, postCategory, postTime, hr);
+                postContainer.append(postCategory, postTitle, postTime, hr);
                 li.append(postContainer);
                 ul.append(li);
             }

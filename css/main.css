@@ -105,7 +105,7 @@ section {
 }
 
 .post-title {
-    margin : 20px 10px 10px 10px;
+    margin : 10px 10px 10px 10px;
     font-size : 20px;
     font-weight : bold;
     overflow: hidden;
@@ -115,8 +115,9 @@ section {
 }
 
 .post-category {
-    margin : 10px 10px;
+    margin : 20px 10px 10px 10px;
     font-size : 16px;
+    font-weight : bold;
 }
 
 .post-time {
