@@ -139,6 +139,78 @@
             updatePage();
         });
 
+        async function readCategory(){
+            const response = await fetch("https://www.medimory.com/api/v1/category", {
+                method: "POST"
+            });
+
+            const table = await response.json();
+            const items = table.Items;
+            return items;
+        }
+
+        function writeCategory(items){
+            const ul = document.getElementById("category-ul");
+            ul.innerHTML = "";
+
+            function checkParent(item){
+                return item.Parent == "empty";
+            }
+            const parents = items.filter(checkParent);
+
+            for (
+                let i = 0;
+                i < parents.length;
+                i++
+            ){
+                function checkChild(item){
+                    return item.Parent == parents[i].Name;
+                }
+                const childs = items.filter(checkChild);
+
+                const li = document.createElement('li');
+                li.className = "category-li";
+
+                li.textContent = parents[i].Name;
+
+                if(childs.length != 0){
+                    const toggle = document.createElement('input');
+                    toggle.type = "checkbox";
+                    toggle.className = "checkbox"
+                    toggle.id = `checkbox${i}`;
+
+                    const label = document.createElement('label');
+                    label.className = "label";
+                    label.setAttribute("for", `checkbox${i}`);
+
+                    const sub_ul = document.createElement('ul');
+                    sub_ul.className = "category-sub-ul";
+
+                    for (
+                    let j = 0;
+                    j < childs.length;
+                    j++
+                    ) {
+                        const sub_li = document.createElement('li');
+                        sub_li.className = "category-sub-li";
+
+                        sub_li.textContent = `ㄴ ${childs[j].Name}`;
+                        sub_ul.append(sub_li);
+                    }
+                    
+                    li.append(toggle, label, sub_ul);
+                }
+
+                ul.append(li);
+            }
+        }
+
+        async function makeCategory(){
+            const items = await readCategory();
+            document.getElementById("category-loading").innerHTML = "";
+            writeCategory(items);
+        }
+
         async function loadPage(){
             await loadModules();
 
@@ -165,6 +237,7 @@
 
             document.body.classList.remove("hidden")
             readPage();
+            makeCategory();
         }
 
         loadPage();
