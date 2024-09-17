@@ -23,6 +23,7 @@
                     <div id="time"></div>
                     <input type="password" id="password" placeholder="비밀번호">
                     <button id="delete">삭제</button>
+                    <button id="update">수정</button>
                 </div>
                 <div class="2 sectionBody" id="content">로딩중...</div>
             </div>
@@ -108,7 +109,6 @@
             })
         }
 
-
         document.getElementById("delete").addEventListener("click", () => {
         var password = document.getElementById("password").value;
 
@@ -129,7 +129,15 @@
                 })
                 .catch(() => {console.log("알 수 없는 오류");})
         });
-        
+
+        async function updatePage() {
+            const params = await getQuery();
+            location.replace(`https://www.medimory.com/update?id=${params}`);
+        }
+
+        document.getElementById("update").addEventListener("click", () => {
+            updatePage();
+        });
 
         async function loadPage(){
             await loadModules();
