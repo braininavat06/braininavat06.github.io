@@ -41,3 +41,40 @@
 aside hr {
     margin : 0 auto;
 }
+
+.aside_box {
+    user-select : none;
+}
+
+.aside_box ul {
+    margin : 0 auto;
+    padding : 0;
+}
+
+.aside_box li {
+    list-style-type: none;
+    font-size: 12pt;
+    margin: 5px 5px;
+    font-weight: bold;
+}
+
+.checkbox {
+    display: none;
+}
+
+.checkbox + .label {
+    margin : 0px 0px 0px 5px;
+    cursor : pointer;
+}
+
+.checkbox + .label::before {
+    content : "▲";
+}
+
+.checkbox:checked ~ ul {
+    display : none;
+} 
+
+.checkbox:checked + .label::before {
+    content : "▼";
+}

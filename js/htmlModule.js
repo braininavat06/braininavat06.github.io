@@ -36,6 +36,14 @@ body, h1, h2, h3, h4, h5, h6, p, span {
 <div class="aside_box">
     <h1>카테고리</h1>
     <hr>
+    <div id="category-loading">로딩중...</div>
+    <ul id="category-ul">
+        <li class="category-li>
+            <ul class="category-sub-ul">
+                <li class="category-sub-li"></li>
+            </ul>
+        </li>
+    </ul>
 </div>
 <div class="aside_section_margin"></div>
 `,

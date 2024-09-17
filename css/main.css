@@ -88,11 +88,11 @@ section {
     margin : 0 auto;
 }
 
-li {
+.sectionBody li {
     list-style-type: none;
 }
 
-ul {
+.sectionBody ul {
     margin : 0 auto;
     padding : 0;
 }
