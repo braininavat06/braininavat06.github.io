@@ -215,7 +215,6 @@
 
             routeCheck("css", "page-css", "/css/page.css?v=" + htmlModule.version);
             document.getElementById("head").insertAdjacentHTML("beforeend", htmlModule.head);
-            document.getElementById("head").innerHTML = htmlModule.head;
             document.getElementById("nav").innerHTML = htmlModule.nav;
             routeCheck("css", "nav-css", "/css/nav.css?v=" + htmlModule.version);
             routeCheck("src", "logo", "/img/medimory-logo.png");
