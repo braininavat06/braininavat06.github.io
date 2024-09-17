@@ -17,6 +17,7 @@
         <section id="section">
             <div class="section_box">
                 <div class="1 sectionBody">
+                    <h3 id="category"></h3>
                     <h1 id="title"></h1>
                     <hr>
                     <div id="time"></div>
@@ -82,10 +83,12 @@
                         var title = table.Title;
                         var time = table.Time;
                         var content = table.Content;
+                        var category = table.Category;
 
                         document.getElementById("title").innerHTML = title;
                         document.getElementById("time").innerHTML = `작성 시간 : ${time}`;
                         document.getElementById("content").innerHTML = content;
+                        document.getElementById("category").innerHTML = `<${category}>`;
                     } else {
                         var content = "존재하지 않는 글이거나 서버 오류입니다.";
                         document.getElementById("content").innerHTML = content;

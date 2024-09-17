@@ -93,3 +93,7 @@ section {
 .inputBody input {
     width : 80%;
 }
+
+.inputBody select {
+    width : 80%;
+}

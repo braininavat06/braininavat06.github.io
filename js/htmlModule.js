@@ -55,7 +55,7 @@ footer
 `,
 
 "version" :
-`8`
+`9`
 }
 
 

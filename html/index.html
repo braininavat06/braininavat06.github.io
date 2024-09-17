@@ -140,7 +140,6 @@
                 return item.Parent == "empty";
             }
             const parents = items.filter(checkParent);
-            console.log(parents);
 
             for (
                 let i = 0;
@@ -151,7 +150,6 @@
                     return item.Parent == parents[i].Name;
                 }
                 const childs = items.filter(checkChild);
-                console.log(childs);
 
                 const li = document.createElement('li');
                 li.className = "category-li";

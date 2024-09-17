@@ -15,7 +15,6 @@
 <body class="hidden">
     <nav id="nav"></nav>
     <div class="section_package">
-        <aside id="aside"></aside>
         <section id="section">
             <div class="section_box">
                 <div class="1 sectionBody">
@@ -25,7 +24,10 @@
                         <h3>제목 : </h3><input type="text" id="title">
                     </div><br>
                     <div class="inputBody">
-                        <h3>암호 : </h3><input type="password" id="password">
+                        <h3>비밀번호 : </h3><input type="password" id="password">
+                    </div><br>
+                    <div class="inputBody">
+                        <h3>카테고리 : </h3><select id="category-select"><option></option></select>
                     </div><br>
                     <div class="main-container">
                         <div class="editor-container editor-container_classic-editor" id="editor-container">
@@ -88,21 +90,79 @@
             }
         }
 
+        async function readCategory(){
+            const response = await fetch("https://www.medimory.com/api/v1/category", {
+                method: "POST"
+            });
+
+            const table = await response.json();
+            const items = table.Items;
+            return items;
+        }
+
+        function writeCategoryOption(items){
+            const select = document.getElementById("category-select");
+            select.innerHTML = "";
+
+            function checkParent(item){
+                return item.Parent == "empty";
+            }
+            const parents = items.filter(checkParent);
+
+            for (
+                let i = 0;
+                i < parents.length;
+                i++
+            ){
+                function checkChild(item){
+                    return item.Parent == parents[i].Name;
+                }
+                const childs = items.filter(checkChild);
+
+                const option = document.createElement('option');
+                option.value = parents[i].Name;
+                option.textContent = parents[i].Name;
+
+                select.append(option);
+
+                if(childs.length != 0){
+                    for (
+                    let j = 0;
+                    j < childs.length;
+                    j++
+                    ) {
+                        const sub_option = document.createElement('option');
+                        sub_option.value = childs[j].Name;
+                        sub_option.textContent = `ㄴ ${childs[j].Name}`;
+
+                        select.append(sub_option);
+                    }
+                }
+            }
+        }
+
+        async function makeCategoryOption(){
+            const items = await readCategory();
+            writeCategoryOption(items);
+        }
+
         document.getElementById("submit").addEventListener("click", () => {
             var title = document.getElementById("title").value;
             var password = document.getElementById("password").value;
             var content = currentEditor.getData();
+            var category = document.getElementById("category-select").value;
 
-            async function makeRequest(title, content){
+            async function makeRequest(title, content, category){
                 var requestBody = {
                     "title" : title,
-                    "content" : content
+                    "content" : content,
+                    "category" : category
                 }
                 return JSON.stringify(requestBody);
             }
         
-            async function writePage(title, content) {
-                var requestBody = await makeRequest(title, content);
+            async function writePage(title, content, category) {
+                var requestBody = await makeRequest(title, content, category);
                 fetch("https://www.medimory.com/api/v1/post_process", {
                         method : "POST",
                         body : requestBody
@@ -128,7 +188,7 @@
                 })
                 .then((data) => {
                     if(data == "success") {
-                        writePage(title, content);
+                        writePage(title, content, category);
                     } else {
                         alert("비밀번호가 일치하지 않습니다.")
                     }
@@ -144,13 +204,11 @@
             document.getElementById("nav").innerHTML = htmlModule.nav;
             routeCheck("css", "nav-css", "/css/nav.css?v=" + htmlModule.version);
             routeCheck("src", "logo", "/img/medimory-logo.png");
-            document.getElementById("aside").innerHTML = htmlModule.aside;
-            routeCheck("css", "aside-css", "/css/aside.css?v=" + htmlModule.version);
             document.getElementById("footer").innerHTML = htmlModule.footer;
 
             await new Promise(resolve => {
                 const cssLoaded = () => {
-                    const link = document.getElementById("aside-css");
+                    const link = document.getElementById("nav-css");
                     if (link.sheet && link.sheet.cssRules.length > 0) {
                         resolve();
                     } else {
@@ -161,6 +219,8 @@
             });
 
             document.body.classList.remove("hidden")
+
+            makeCategoryOption();
         }
 
         loadPage();
