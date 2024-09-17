@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="kor">
-<head>
-    <div id="head"></div>
+<head id="head">
     <title>Medimory | 메디모리 글 수정</title>
     <link id="update-css" rel="stylesheet" href="" crossorigin="anonymous">
     <link id="ckeditor-css" rel="stylesheet" href="" crossorigin="anonymous">
@@ -250,11 +249,11 @@
             await loadModules();
 
             routeCheck("css", "update-css", "/css/post.css?v=" + htmlModule.version);
+            document.getElementById("head").insertAdjacentHTML("beforeend", htmlModule.head);
             document.getElementById("head").innerHTML = htmlModule.head;
             document.getElementById("nav").innerHTML = htmlModule.nav;
             routeCheck("css", "nav-css", "/css/nav.css?v=" + htmlModule.version);
             routeCheck("src", "logo", "/img/medimory-logo.png");
-            routeCheck("css", "favicon", "/img/medimory-favicon.png");
             document.getElementById("footer").innerHTML = htmlModule.footer;
 
             await new Promise(resolve => {

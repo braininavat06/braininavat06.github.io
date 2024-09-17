@@ -7,6 +7,8 @@ var htmlModule = {
 <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
+<link id="favicon" rel="icon" href="">
+
 <!-- 전역 글꼴(나눔 고딕) -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -22,7 +24,6 @@ body, h1, h2, h3, h4, h5, h6, p, span {
 "nav" : 
 `
 <link id="nav-css" rel="stylesheet" href="" crossorigin="anonymous">
-<link id="favicon" rel="icon" href="">
 
 <div class="nav_package">
     <a href="/"><img id="logo" src="" alt="메디모리 | Medimory"/></a>
