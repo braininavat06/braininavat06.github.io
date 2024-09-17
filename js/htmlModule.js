@@ -22,6 +22,7 @@ body, h1, h2, h3, h4, h5, h6, p, span {
 "nav" : 
 `
 <link id="nav-css" rel="stylesheet" href="" crossorigin="anonymous">
+<link id="favicon" rel="icon" href="">
 
 <div class="nav_package">
     <a href="/"><img id="logo" src="" alt="메디모리 | Medimory"/></a>
@@ -55,7 +56,7 @@ footer
 `,
 
 "version" :
-`9`
+`10`
 }
 
 
