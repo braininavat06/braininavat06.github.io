@@ -114,7 +114,7 @@
 
 
         async function writeList(num){
-            page = num;
+            page = Number(num);
             const category = await readCategory();
             const filteredCategory = category.filter((item) => {
                 return item.Parent == id;
