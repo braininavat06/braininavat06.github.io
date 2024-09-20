@@ -170,7 +170,11 @@
                 const li = document.createElement('li');
                 li.className = "category-li";
 
-                li.textContent = parents[i].Name;
+                const a = document.createElement('a');
+                a.textContent = parents[i].Name;
+                a.href = `https://www.medimory.com/list?id=${parents[i].Name}`;
+
+                li.append(a);
 
                 if(childs.length != 0){
                     const toggle = document.createElement('input');
@@ -193,7 +197,11 @@
                         const sub_li = document.createElement('li');
                         sub_li.className = "category-sub-li";
 
-                        sub_li.textContent = `ㄴ ${childs[j].Name}`;
+                        const a = document.createElement('a');
+                        a.textContent = `ㄴ ${childs[j].Name}`;
+                        a.href = `https://www.medimory.com/list?id=${childs[j].Name}`;
+
+                        sub_li.append(a);
                         sub_ul.append(sub_li);
                     }
                     

@@ -133,3 +133,19 @@ section {
     margin-top : 20px;
     margin-bottom : 0px;
 }
+
+#button-container {
+    display : flex;
+    justify-content : center;
+}
+
+#button-container div, span {
+    padding : 0 5px;
+    cursor : pointer;
+}
+
+.number-button.selected {
+    font-weight: bolder;
+    background-color: var(--brighter);
+    cursor : default;
+}
