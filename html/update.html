@@ -79,6 +79,18 @@
         }
 
         let htmlModule;
+        let version;
+
+        async function loadVersion() {
+            var versionJs = "https://braininavat06.github.io/js/version.js?" + new Date().getTime();
+
+            try {
+                const versionModule = await import(versionJs);
+                version = versionModule.version;
+            } catch (error) {
+                console.error("버전 모듈 로드 실패 :", error);
+            }
+        }
 
         async function loadModules() { 
             var jsRoute = routeCheck("js", 0, "/js/htmlModule.js");
@@ -248,10 +260,10 @@
         async function loadPage(){
             await loadModules();
 
-            routeCheck("css", "update-css", "/css/post.css?v=" + htmlModule.version);
+            routeCheck("css", "update-css", "/css/post.css?v=" + version);
             document.getElementById("head").insertAdjacentHTML("beforeend", htmlModule.head);
             document.getElementById("nav").innerHTML = htmlModule.nav;
-            routeCheck("css", "nav-css", "/css/nav.css?v=" + htmlModule.version);
+            routeCheck("css", "nav-css", "/css/nav.css?v=" + version);
             routeCheck("src", "logo", "/img/medimory-logo.png");
             document.getElementById("footer").innerHTML = htmlModule.footer;
 
