@@ -16,7 +16,7 @@
         <section id="section">
             <div class="section_box">
                 <div class="sectionBody">
-                    <h1 id="title">()의 글</h1>
+                    <h1 id="title">(로딩중...)의 글</h1>
                     <hr>
                     <div id="list-loading">로딩중...</div>
                     <ul id="post-ul">
@@ -122,10 +122,16 @@
             const mappedCategory = filteredCategory.map((item) => item.Name);
 
             document.getElementById("title").innerHTML = `"${id}" 의 글`
+            if(id == "전체글") {
+                document.getElementById("title").innerHTML = "전체 글"
+            }
 
-            const filteredItems = items.filter((item) => {
+            var filteredItems = items.filter((item) => {
                 return item.Category == id || mappedCategory.includes(item.Category)
             });
+            if(id == "전체글") {
+                filteredItems = items;
+            }
 
             const ul = document.getElementById("post-ul");
             ul.innerHTML = "";
