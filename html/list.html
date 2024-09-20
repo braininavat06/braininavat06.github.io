@@ -298,6 +298,7 @@
         }
 
         async function loadPage(){
+            await loadVersion();
             await loadModules();
 
             routeCheck("css", "main-css", "/css/main.css?v=" + version);

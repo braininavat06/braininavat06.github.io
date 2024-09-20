@@ -258,6 +258,7 @@
         });
 
         async function loadPage(){
+            await loadVersion();
             await loadModules();
 
             routeCheck("css", "update-css", "/css/post.css?v=" + version);
