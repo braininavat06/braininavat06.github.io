@@ -38,10 +38,10 @@ body, h1, h2, h3, h4, h5, h6, p, span {
 <div class="aside_box">
     <h1>카테고리</h1>
     <hr>
-    <div id="category-loading">로딩중...</div>
     <ul>
         <li><a href="https://www.medimory.com/list?id=전체글">전체 글 보기</a></li>
     </ul>
+    <div id="category-loading">로딩중...</div>
     <ul id="category-ul">
         <li class="category-li>
             <ul class="category-sub-ul">
