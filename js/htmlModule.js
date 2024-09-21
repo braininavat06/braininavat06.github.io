@@ -5,6 +5,7 @@ var htmlModule = {
 `
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta name="google-adsense-account" content="ca-pub-8581972532015406">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
 <link id="favicon" rel="icon" href="">
