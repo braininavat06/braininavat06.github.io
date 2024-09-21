@@ -1,5 +1,6 @@
 import {
 	ClassicEditor,
+	CodeBlock,
 	AccessibilityHelp,
 	Alignment,
 	AutoImage,
@@ -86,6 +87,7 @@ const editorConfig = {
 			'insertTable',
 			'highlight',
 			'blockQuote',
+			'codeBlock',
 			'|',
 			'alignment',
 			'|',
@@ -105,6 +107,7 @@ const editorConfig = {
 		SimpleUploadAdapter,
 		BlockQuote,
 		Bold,
+		CodeBlock,
 		Essentials,
 		FindAndReplace,
 		FontBackgroundColor,
