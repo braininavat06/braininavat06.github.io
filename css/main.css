@@ -10,6 +10,28 @@
 
 /* 모바일 */
 @media screen and (max-width : 768px) {
+    .section_box {
+        background-color : var(--brighter);
+        flex : 1 0 auto;
+        width : 0px;
+        word-break : break-all;
+    }
+
+    .sectionBody {
+        /* overflow : hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap; */
+        background-color : white;
+        width : calc(100% - 20px);
+        margin : 20px 0px;
+        padding : 10px;
+    }
+
+    .post-container {
+        background-color: white;
+        margin: 0px;
+        cursor: pointer;
+    }
 
 }
 
@@ -33,13 +55,16 @@
     }
 
     .sectionBody {
-        overflow : hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
         background-color : white;
         width : calc(100% - 60px);
         margin : 20px;
         padding : 10px;
+    }
+
+    .post-container {
+        background-color: white;
+        margin: 0px 15px;
+        cursor: pointer;
     }
 }
 
@@ -67,13 +92,16 @@
     }
 
     .sectionBody {
-        overflow : hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
         background-color : white;
         width : calc(100% - 60px);
         margin : 20px;
         padding : 10px;
+    }
+
+    .post-container {
+        background-color: white;
+        margin: 0px 15px;
+        cursor: pointer;
     }
 }
 
@@ -97,20 +125,14 @@ section {
     padding : 0;
 }
 
-.post-container {
-    background-color: white;
-    margin: 0px 15px;
-    cursor: pointer;
-}
-
 .post-title {
     margin : 10px 10px 10px 10px;
     font-size : 20px;
     font-weight : bold;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    word-break: break-all;
+    /* overflow: hidden; */
+    /* white-space: nowrap; */
+    /* word-break: keep-all; */
+    /* text-overflow: ellipsis; */
 }
 
 .post-category {

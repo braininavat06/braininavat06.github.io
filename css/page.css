@@ -10,6 +10,19 @@
 
 /* 모바일 */
 @media screen and (max-width : 768px) {
+    .section_box {
+        background-color : var(--brighter);
+        flex : 1 0 auto;
+        width : 0px;
+    }
+
+    .sectionBody {
+        background-color : white;
+        width : calc(100% - 20px);
+        margin : 20px 0px;
+        padding : 10px;
+        line-height : 210%;
+    }
 
 }
 
@@ -29,12 +42,9 @@
         background-color : var(--brighter);
         flex : 1 0 auto;
         width : 0px;
-        word-break : break-all;
     }
 
     .sectionBody {
-        overflow : hidden;
-        text-overflow: ellipsis;
         background-color : white;
         width : calc(100% - 100px);
         margin : 20px;
@@ -63,12 +73,9 @@
         background-color : var(--brighter);
         flex : 1 0 auto;
         width : 0px;
-        word-break : break-all;
     }
 
     .sectionBody {
-        overflow : hidden;
-        text-overflow: ellipsis;
         background-color : white;
         width : calc(100% - 100px);
         margin : 20px;
