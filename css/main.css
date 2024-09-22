@@ -159,6 +159,7 @@ section {
 #button-container {
     display : flex;
     justify-content : center;
+    margin : 15px 0px 5px 0px;
 }
 
 #button-container div, span {
