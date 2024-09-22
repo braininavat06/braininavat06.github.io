@@ -100,7 +100,6 @@ section {
 .post-container {
     background-color: white;
     margin: 0px 15px;
-    overflow : hidden;
     cursor: pointer;
 }
 
@@ -120,9 +119,10 @@ section {
     font-weight : bold;
 }
 
-.post-time {
-    margin : 10px 10px;
-    font-size : 16px;
+.post-time, .update-time {
+    margin : 10px;
+    padding : 0px;
+    font-size : 14px;
 }
 
 .post-container:hover > .post-title {

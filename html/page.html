@@ -20,6 +20,7 @@
                     <h1 id="title"></h1>
                     <hr>
                     <div id="time"></div>
+                    <div id="update"></div>
                     <input type="password" id="password" placeholder="비밀번호">
                     <button id="delete">삭제</button>
                     <button id="update">수정</button>
@@ -91,14 +92,17 @@
                 })
                 .then((data) => {
                     const table = data.Item;
-                    if(table != null) {
+                    console.log (table)
+                    if(table.Time != null) {
                         var title = table.Title;
                         var time = table.Time;
+                        var update = table.Update;
                         var content = table.Content;
                         var category = table.Category;
 
                         document.getElementById("title").innerHTML = title;
                         document.getElementById("time").innerHTML = `작성 시간 : ${time}`;
+                        document.getElementById("update").innerHTML = `수정 시간 : ${update}`;
                         document.getElementById("content").innerHTML = content;
                         document.getElementById("category").innerHTML = `<${category}>`;
                     } else {
@@ -107,6 +111,7 @@
                     }
                 })
                 .catch((e) => {
+                    console.log(e);
                     var content = "존재하지 않는 글이거나 서버 오류입니다.";
                     document.getElementById("content").innerHTML = content;
                 })

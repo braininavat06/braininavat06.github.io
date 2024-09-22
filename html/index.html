@@ -91,6 +91,8 @@
             const table = await response.json();
             const items = table.Items;
 
+            console.log(items);
+
             return items;
         }
 
@@ -121,13 +123,17 @@
                 const postTime = document.createElement('p');
                 postTime.className = "post-time";
 
+                const updateTime = document.createElement('p');
+                updateTime.className = "update-time";
+
                 postTitle.textContent = items[i].Title;
                 postCategory.textContent = `<${items[i].Category}>`;
                 postTime.textContent = `작성 시간 : ${items[i].Time}`;
+                updateTime.textContent = `수정 시간 : ${items[i].Update}`;
 
                 const hr = document.createElement('hr');
 
-                postContainer.append(postCategory, postTitle, postTime, hr);
+                postContainer.append(postCategory, postTitle, postTime, updateTime, hr);
                 li.append(postContainer);
                 ul.append(li);
             }
@@ -235,7 +241,7 @@
 
             await new Promise(resolve => {
                 const cssLoaded = () => {
-                    const link = document.getElementById("main-css");
+                    const link = document.getElementById("aside-css");
                     if (link.sheet && link.sheet.cssRules.length > 0) {
                         resolve();
                     } else {
