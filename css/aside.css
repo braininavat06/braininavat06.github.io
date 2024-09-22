@@ -8,7 +8,15 @@
 
 /* 모바일 */
 @media screen and (max-width : 768px) {
-
+    aside h1 {
+        margin : 0;
+        height : 45px;
+        line-height : 45px;
+    }
+    
+    .aside_box {
+        padding : 0px 10px;
+    }
 }
 
 
