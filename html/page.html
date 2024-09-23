@@ -25,8 +25,8 @@
                     <div id="time"></div>
                     <div id="update"></div>
                     <input type="password" id="password" placeholder="비밀번호">
-                    <button id="delete">삭제</button>
-                    <button id="update">수정</button>
+                    <button id="delete-button">삭제</button>
+                    <button id="update-button">수정</button>
                 </div>
                 <div class="2 sectionBody" id="content">로딩중...</div>
             </div>
@@ -144,7 +144,7 @@
             })
         }
 
-        document.getElementById("delete").addEventListener("click", () => {
+        document.getElementById("delete-button").addEventListener("click", () => {
         var password = document.getElementById("password").value;
 
         fetch("https://www.medimory.com/api/v1/password_check", {
@@ -170,7 +170,7 @@
             location.replace(`https://www.medimory.com/update?id=${params}`);
         }
 
-        document.getElementById("update").addEventListener("click", () => {
+        document.getElementById("update-button").addEventListener("click", () => {
             updatePage();
         });
 
