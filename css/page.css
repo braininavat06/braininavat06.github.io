@@ -99,3 +99,13 @@ section {
     margin : 0 auto;
 }
 
+pre {
+    position : relative;
+}
+
+.copy-button {
+    position : absolute;
+    z-index : 5;
+    top : 0px;
+    right : 0px;
+}
