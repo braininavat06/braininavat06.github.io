@@ -134,16 +134,16 @@
             })
             const mappedCategory = filteredCategory.map((item) => item.Name);
 
-            document.getElementById("title").innerHTML = `"${id}" 의 글`
-            if(id == "전체글") {
-                document.getElementById("title").innerHTML = "전체 글"
-            }
-
             var filteredItems = item.filter((inner_item) => {
                 return inner_item.Category == id || mappedCategory.includes(inner_item.Category)
             });
             if(id == "전체글") {
                 filteredItems = item;
+            }
+
+            document.getElementById("title").innerHTML = `"${id}" 의 글 (${filteredItems.length})`
+            if(id == "전체글") {
+                document.getElementById("title").innerHTML = `전체 글 (${filteredItems.length})`
             }
 
             const ul = document.getElementById("post-ul");
