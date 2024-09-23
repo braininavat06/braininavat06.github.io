@@ -94,7 +94,7 @@
         }
 
         async function loadModules() { 
-            var jsRoute = routeCheck("js", 0, "/js/htmlModule.js");
+            var jsRoute = routeCheck("js", 0, `/js/htmlModule.js?v=${version}`);
 
             try {
                 const module = await import(jsRoute);
