@@ -5,7 +5,6 @@ import {
 	Alignment,
 	AutoImage,
 	Autosave,
-	SimpleUploadAdapter,
 	BlockQuote,
 	Bold,
 	Essentials,
@@ -44,6 +43,7 @@ import {
 	Strikethrough,
 	Subscript,
 	Superscript,
+	SimpleUploadAdapter,
 	Table,
 	TableCaption,
 	TableCellProperties,
@@ -56,6 +56,72 @@ import {
 } from 'ckeditor5';
 
 import translations from 'ckeditor5/translations/ko.js';
+
+
+function uploadAdapter(loader) {
+	return {
+	   upload: () => {
+		  return new Promise((resolve, reject) => {
+			 loader.file.then(file => {
+				var password = document.getElementById("password").value;
+
+				const reader = new FileReader();
+				reader.onload = () => {
+					const imageData = reader.result.split(',')[1]; // base64 데이터 추출
+
+					
+					fetch("https://www.medimory.com/api/v1/password_check", {
+						method: "POST",
+						body: password
+					})
+						.then((response) => {
+							return response.text();
+						})
+						.then((data) => {
+							if(data == "success") {
+								fetch('https://www.medimory.com/api/v1/image_upload', {
+									method: 'POST',
+									headers: {
+									   'Content-Type': 'application/json',
+									},
+									body: JSON.stringify({
+									   image: imageData
+									})
+									 })
+									  .then((res) => res.json())
+									  .then(res => {
+										  console.log(res);
+										  resolve({
+											  default: res.url // Lambda 함수에서 반환된 이미지 URL을 사용합니다.
+										  });
+										})
+										.catch(error => {
+										  console.error('Error uploading image:', error);
+										  reject(error.message || 'Failed to upload image');
+										});
+							} else {
+								alert("비밀번호가 일치하지 않습니다.")
+							}
+						})
+						.catch(() => {console.log("알 수 없는 오류");})
+
+				};
+				reader.readAsDataURL(file);
+			 })
+				.catch(error => {
+				   console.error('Error getting file from loader:', error);
+				   reject(error);
+				});
+		  });
+	   }
+	};
+ }
+
+ function uploadPlugin(editor) {
+	editor.plugins.get("FileRepository").createUploadAdapter = (loader) => {
+	   return uploadAdapter(loader);
+	};
+ }
 
 const editorConfig = {
 	toolbar: {
@@ -152,7 +218,8 @@ const editorConfig = {
 		TableToolbar,
 		TodoList,
 		Underline,
-		Undo
+		Undo,
+		uploadPlugin
 	],
 	fontFamily: {
 		supportAllValues: true
