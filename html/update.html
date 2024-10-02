@@ -264,7 +264,7 @@
                     })
                         .then((response) => {return response.text();})
                         .then((data) => {
-                            // location.replace(`https://www.medimory.com/page?id=${data}`);
+                            location.replace(`https://www.medimory.com/page?id=${data}`);
                         })
                         .catch((e) => {console.log(e)});
             }

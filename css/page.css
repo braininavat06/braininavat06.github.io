@@ -5,6 +5,9 @@
     --brighter : #f2f2f2;
 
     --div-height : 200px;
+
+    --ck-image-style-spacing: 1.5em;
+    --ck-inline-image-style-spacing: calc(var(--ck-image-style-spacing) / 2);
 }
 
 
@@ -91,6 +94,10 @@ section {
     flex : 1;
 }
 
+.sectionBody {
+    word-break : break-all;
+}
+
 .sectionBody h1 {
     margin : 0 auto;
 }
@@ -117,4 +124,24 @@ pre {
 figure img {
     width : 100% !important;
     height : auto !important;
+}
+
+.image-style-align-right {
+    float: right;
+    margin-left: var(--ck-image-style-spacing);
+}
+
+.image-style-align-left {
+    float: left;
+    margin-right: var(--ck-image-style-spacing);
+}
+
+.image-style-block-align-right {
+    margin-right: 0;
+	margin-left: auto;
+}
+
+.image-style-block-align-left {
+    margin-right: 0;
+	margin-left: auto;
 }
