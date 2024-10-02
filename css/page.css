@@ -128,11 +128,13 @@ figure img {
 
 .image-style-align-right {
     float: right;
+    margin-right: 0;
     margin-left: var(--ck-image-style-spacing);
 }
 
 .image-style-align-left {
     float: left;
+    margin-left: 0;
     margin-right: var(--ck-image-style-spacing);
 }
 
