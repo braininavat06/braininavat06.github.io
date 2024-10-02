@@ -19,8 +19,8 @@
                 <div class="1 sectionBody">
                     <h1>글 작성</h1>
                     <hr>
-                    <input type="text" id="imageURL">
-                    <input type="text" id="uuid">
+                    <input type="hidden" id="imageURL">
+                    <input type="hidden" id="uuid">
                     <div class="inputBody">
                         <h3>제목 : </h3><input type="text" id="title">
                     </div><br>
@@ -188,6 +188,8 @@
                 var uploadURL = uploadImgArray.map((img) => {
                     return img.src
                 });
+
+                console.log(uploadURL);
 
                 var difference = imageURL.filter((url) => {
                     return !uploadURL.includes(url);
