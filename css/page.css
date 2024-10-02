@@ -109,3 +109,7 @@ pre {
     top : 0px;
     right : 0px;
 }
+
+.sectionBody a {
+    color : #088A68;
+}

@@ -110,3 +110,7 @@ section {
 .inputBody select {
     width : 80%;
 }
+
+.ck-content p {
+	line-height: 1.6;
+}
