@@ -90,9 +90,9 @@ function uploadAdapter(loader) {
 									 })
 									  .then((res) => res.json())
 									  .then(res => {
-										  console.log(res);
+										  document.getElementById("imageURL").value += `${res},`;
 										  resolve({
-											  default: res.url // Lambda 함수에서 반환된 이미지 URL을 사용합니다.
+											  default: res // Lambda 함수에서 반환된 이미지 URL을 사용합니다.
 										  });
 										})
 										.catch(error => {

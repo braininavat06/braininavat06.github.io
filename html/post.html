@@ -19,6 +19,8 @@
                 <div class="1 sectionBody">
                     <h1>글 작성</h1>
                     <hr>
+                    <input type="text" id="imageURL">
+                    <input type="text" id="uuid">
                     <div class="inputBody">
                         <h3>제목 : </h3><input type="text" id="title">
                     </div><br>
@@ -59,6 +61,16 @@
 
     <script type="module">
         import { Editor } from "ckeditor5";
+        
+        
+        function uuidv4() {
+            return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+                var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+                return v.toString(16);
+            });
+        }
+
+        document.getElementById("uuid").value = uuidv4();
 
         const isProduction = !(
             window.location.hostname === 'localhost' ||
@@ -160,22 +172,47 @@
         }
 
         document.getElementById("submit").addEventListener("click", () => {
+            var uuid = document.getElementById("uuid").value;
             var title = document.getElementById("title").value;
             var password = document.getElementById("password").value;
             var content = currentEditor.getData();
             var category = document.getElementById("category-select").value;
 
-            async function makeRequest(title, content, category){
+            async function makeRequest(uuid, title, content, category){
+                var imageURL = document.getElementById("imageURL").value.split(",");
+                imageURL.pop();
+
+                var editorContent = document.createElement("div");
+                editorContent.innerHTML = content;
+                var uploadImgArray = Array.from(editorContent.getElementsByTagName("img"));
+                var uploadURL = uploadImgArray.map((img) => {
+                    return img.src
+                });
+
+                var difference = imageURL.filter((url) => {
+                    return !uploadURL.includes(url);
+                });
+
+                if(difference.length != 0) {
+                    fetch("https://www.medimory.com/api/v1/image_delete", {
+                        method : "POST",
+                        body : difference
+                    })
+                        .catch((e) => {console.log(e)});
+                }
+
                 var requestBody = {
+                    "uuid" : uuid,
                     "title" : title,
                     "content" : content,
-                    "category" : category
+                    "category" : category,
+                    "img" : uploadURL
                 }
                 return JSON.stringify(requestBody);
             }
         
-            async function writePage(title, content, category) {
-                var requestBody = await makeRequest(title, content, category);
+            async function writePage(uuid, title, content, category) {
+                var requestBody = await makeRequest(uuid, title, content, category);
                 fetch("https://www.medimory.com/api/v1/post_process", {
                         method : "POST",
                         body : requestBody
@@ -201,7 +238,7 @@
                 })
                 .then((data) => {
                     if(data == "success") {
-                        writePage(title, content, category);
+                        writePage(uuid, title, content, category);
                     } else {
                         alert("비밀번호가 일치하지 않습니다.")
                     }

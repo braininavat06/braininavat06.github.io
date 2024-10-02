@@ -19,7 +19,8 @@
                 <div class="1 sectionBody">
                     <h1>글 수정</h1>
                     <hr>
-                    <input type="hidden" id="id">
+                    <input type="text" id="imageURL">
+                    <input type="hidden" id="uuid">
                     <input type="hidden" id="timesort">
                     <div class="inputBody">
                         <h3>제목 : </h3><input type="text" id="title">
@@ -126,12 +127,21 @@
                         var category = table.Category;
                         var timesort = table.TimeSort;
                         var id = table.Id;
+                        var image = table.Image;
+                        var imageArray = image.map((element) => {
+                            return element.S;
+                        })
+                        var imageString = imageArray.join(",");
+                        if(imageString != '') {
+                            imageString += ","
+                        }
 
                         document.getElementById("title").value = title;
                         currentEditor.setData(content);
                         document.getElementById(`option ${category}`).setAttribute('selected', '');
                         document.getElementById("timesort").value = timesort;
-                        document.getElementById("id").value = id;
+                        document.getElementById("uuid").value = id;
+                        document.getElementById("imageURL").value = imageString;
                     } else {
                         var content = "존재하지 않는 글이거나 서버 오류입니다.";
                         alert(content);
@@ -204,7 +214,7 @@
         }
 
         document.getElementById("submit").addEventListener("click", () => {
-            var id = document.getElementById("id").value;
+            var uuid = document.getElementById("uuid").value;
             var timesort = document.getElementById("timesort").value;
             var title = document.getElementById("title").value;
             var password = document.getElementById("password").value;
@@ -212,26 +222,49 @@
             var category = document.getElementById("category-select").value;
 
 
-            async function makeRequest(id, timesort, title, content, category){
+            async function makeRequest(uuid, timesort, title, content, category){
+                var imageURL = document.getElementById("imageURL").value.split(",");
+                imageURL.pop();
+
+                var editorContent = document.createElement("div");
+                editorContent.innerHTML = content;
+                var uploadImgArray = Array.from(editorContent.getElementsByTagName("img"));
+                var uploadURL = uploadImgArray.map((img) => {
+                    return img.src
+                });
+
+                var difference = imageURL.filter((url) => {
+                    return !uploadURL.includes(url);
+                });
+
+                if(difference.length != 0) {
+                    fetch("https://www.medimory.com/api/v1/image_delete", {
+                        method : "POST",
+                        body : difference
+                    })
+                        .catch((e) => {console.log(e)});
+                }
+
                 var requestBody = {
-                    "id" : id,
+                    "uuid" : uuid,
                     "timesort" : timesort,
                     "title" : title,
                     "content" : content,
-                    "category" : category
+                    "category" : category,
+                    "img" : uploadURL
                 }
                 return JSON.stringify(requestBody);
             }
         
-            async function writePage(id, timesort, title, content, category) {
-                var requestBody = await makeRequest(id, timesort, title, content, category);
+            async function writePage(uuid, timesort, title, content, category) {
+                var requestBody = await makeRequest(uuid, timesort, title, content, category);
                 fetch("https://www.medimory.com/api/v1/update_process", {
                         method : "POST",
                         body : requestBody
                     })
                         .then((response) => {return response.text();})
                         .then((data) => {
-                            location.replace(`https://www.medimory.com/page?id=${data}`);
+                            // location.replace(`https://www.medimory.com/page?id=${data}`);
                         })
                         .catch((e) => {console.log(e)});
             }
@@ -250,7 +283,7 @@
                 })
                 .then((data) => {
                     if(data == "success") {
-                        writePage(id, timesort, title, content, category);
+                        writePage(uuid, timesort, title, content, category);
                     } else {
                         alert("비밀번호가 일치하지 않습니다.")
                     }
