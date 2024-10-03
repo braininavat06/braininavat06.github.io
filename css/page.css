@@ -126,6 +126,15 @@ figure img {
     height : auto !important;
 }
 
+.image {
+    margin-left : auto;
+    margin-right : auto;
+}
+
+.image_resized {
+    max-width : 95%;
+}
+
 .image-style-align-right {
     float: right;
     margin-right: 0;

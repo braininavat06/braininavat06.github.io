@@ -115,7 +115,7 @@ function uploadAdapter(loader) {
 		  });
 	   }
 	};
- }
+}
 
  function uploadPlugin(editor) {
 	editor.plugins.get("FileRepository").createUploadAdapter = (loader) => {
@@ -292,6 +292,29 @@ const editorConfig = {
 			'imageStyle:breakText',
 			'|',
 			'resizeImage'
+		],
+		resizeUnit: 'px',
+		resizeOptions: [
+			{
+				name: 'resizeImage:original',
+				label: 'Original',
+				value: null
+			},
+			{
+				name: 'resizeImage:custom',
+				label: 'Custom',
+				value: 'custom'
+			},
+			{
+				name: 'resizeImage:100',
+				label: '100px',
+				value: '100'
+			},
+			{
+				name: 'resizeImage:200',
+				label: '200px',
+				value: '200'
+			}
 		]
 	},
 	language: 'ko',
