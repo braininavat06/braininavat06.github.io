@@ -95,7 +95,7 @@ section {
 }
 
 .sectionBody {
-    word-break : break-all;
+    overflow-wrap: anywhere;
 }
 
 .sectionBody h1 {
@@ -165,4 +165,11 @@ blockquote {
     overflow:hidden;
     padding-left:1.5em;
     padding-right:1.5em
+}
+
+hr {
+    background:#dedede;
+    border:0;
+    height:4px;
+    margin:15px 0;
 }
