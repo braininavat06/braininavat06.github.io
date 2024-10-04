@@ -167,7 +167,7 @@ blockquote {
     padding-right:1.5em
 }
 
-hr {
+.sectionBody hr {
     background:#dedede;
     border:0;
     height:4px;
