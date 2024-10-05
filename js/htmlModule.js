@@ -61,7 +61,7 @@ pre, code, code span, code p {
 "footer" :
 `
 <hr>
-footer
+문의 : medimory.official@gmail.com
 `
 }
 
