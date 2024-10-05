@@ -173,3 +173,14 @@ blockquote {
     height:4px;
     margin:15px 0;
 }
+
+figcaption {
+	display: table-caption;
+	caption-side: bottom;
+	word-break: break-word;
+	color: hsl(0, 0%, 20%);
+	background-color: hsl(0, 0%, 20%);
+	padding: .6em;
+	font-size: .75em;
+	outline-offset: -1px;
+}
