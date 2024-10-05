@@ -175,11 +175,10 @@ blockquote {
 }
 
 figcaption {
-	display: table-caption;
 	caption-side: bottom;
 	word-break: break-word;
-	color: hsl(0, 0%, 20%);
-	background-color: hsl(0, 0%, 20%);
+	color: #333;
+	background-color: #f7f7f7;
 	padding: .6em;
 	font-size: .75em;
 	outline-offset: -1px;
