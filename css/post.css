@@ -111,6 +111,6 @@ section {
     width : 80%;
 }
 
-.ck-content p {
+.ck-content p, ul, ol {
 	line-height: 1.6;
 }
