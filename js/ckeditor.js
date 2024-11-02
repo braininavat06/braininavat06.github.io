@@ -342,6 +342,9 @@ const editorConfig = {
 	table: {
 		contentToolbar: ['tableColumn', 'tableRow', 'mergeTableCells', 'tableProperties', 'tableCellProperties']
 	},
+	mediaEmbed: {
+		previewsInData: true
+	},
 	translations: [translations]
 };
 
