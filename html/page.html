@@ -6,6 +6,8 @@
     <!-- 코드 하이라이트 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/stackoverflow-dark.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <!-- 미디어 엠베딩 -->
+    <script async charset="utf-8" src="//cdn.embedly.com/widgets/platform.js"></script>
     <style>
         body.hidden {
             display: none;
@@ -124,6 +126,18 @@
                             })
                             pre.append(copyButton);
                         });
+
+                        //미디어 엠베딩 부분
+                        document.querySelectorAll( 'oembed[url]' ).forEach( element => {
+                            // Create the <a href="..." class="embedly-card"></a> element that Embedly uses
+                            // to discover the media.
+                            const anchor = document.createElement( 'a' );
+                    
+                            anchor.setAttribute( 'href', element.getAttribute( 'url' ) );
+                            anchor.className = 'embedly-card';
+                    
+                            element.appendChild( anchor );
+                        } );
                     } else {
                         var content = "존재하지 않는 글이거나 서버 오류입니다.";
                         document.getElementById("content").innerHTML = content;
