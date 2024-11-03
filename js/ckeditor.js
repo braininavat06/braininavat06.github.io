@@ -319,9 +319,16 @@ const editorConfig = {
 	},
 	language: 'ko',
 	link: {
-		addTargetToExternalLinks: true,
 		defaultProtocol: 'https://',
 		decorators: {
+			openInNewTab: {
+				mode: 'manual',
+				label: 'Open in a new tab',
+				attributes: {
+					target: '_blank',
+					rel: 'noopener noreferrer'
+				}
+			},
 			toggleDownloadable: {
 				mode: 'manual',
 				label: 'Downloadable',
