@@ -87,11 +87,11 @@ aside hr {
     content : "▼";
 }
 
-li a {
+.aside_box li a {
     text-decoration : none;
     color : black;
 }
 
-li a:hover {
+.aside_box li a:hover {
     text-decoration : underline;
 }

@@ -106,6 +106,18 @@ section {
     margin : 0 auto;
 }
 
+.sectionBody a {
+    text-decoration : none;
+    color : #088A68;
+}
+
+.sectionBody hr {
+    background:#dedede;
+    border:0;
+    height:4px;
+    margin:15px 0;
+}
+
 pre {
     position : relative;
 }
@@ -115,10 +127,6 @@ pre {
     z-index : 5;
     top : 0px;
     right : 0px;
-}
-
-.sectionBody a {
-    color : #088A68;
 }
 
 figure img {
@@ -166,13 +174,6 @@ blockquote {
     overflow:hidden;
     padding-left:1.5em;
     padding-right:1.5em
-}
-
-.sectionBody hr {
-    background:#dedede;
-    border:0;
-    height:4px;
-    margin:15px 0;
 }
 
 figcaption {

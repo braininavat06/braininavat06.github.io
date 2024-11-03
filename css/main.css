@@ -123,17 +123,94 @@ section {
     margin : 0 auto;
 }
 
-.sectionBody li {
+.sectionBody button {
+    margin : 5px 5px;
+}
+
+.noticeBody {
+    line-height : 210%;
+}
+
+.noticeBody a {
+    text-decoration : none;
+    color : #088A68;
+}
+
+pre {
+    position : relative;
+}
+
+.copy-button {
+    position : absolute;
+    z-index : 5;
+    top : 0px;
+    right : 0px;
+}
+
+figure img {
+    width : 100% !important;
+    height : auto !important;
+    display : block;
+}
+
+.image {
+    margin-left : auto;
+    margin-right : auto;
+}
+
+.image_resized {
+    max-width : 95%;
+}
+
+.image-style-align-right {
+    float: right;
+    margin-right: 0;
+    margin-left: var(--ck-image-style-spacing);
+}
+
+.image-style-align-left {
+    float: left;
+    margin-left: 0;
+    margin-right: var(--ck-image-style-spacing);
+}
+
+.image-style-block-align-right {
+    margin-right: 0;
+	margin-left: auto;
+}
+
+.image-style-block-align-left {
+    margin-right: 0;
+	margin-left: auto;
+}
+
+blockquote {
+    border-left:5px solid #ccc;
+    font-style:italic;
+    margin-left:0;
+    margin-right:0;
+    overflow:hidden;
+    padding-left:1.5em;
+    padding-right:1.5em
+}
+
+figcaption {
+	caption-side: bottom;
+	word-break: break-word;
+	color: #333;
+	background-color: #f7f7f7;
+	padding: .6em;
+	font-size: .75em;
+	outline-offset: -1px;
+}
+
+.recentPost li {
     list-style-type: none;
 }
 
-.sectionBody ul {
+.recentPost ul {
     margin : 0 auto;
     padding : 0;
-}
-
-.sectionBody button {
-    margin : 5px 5px;
 }
 
 .post-title {
