@@ -17,6 +17,11 @@
         <section id="section">
             <div class="section_box">
                 <div class="sectionBody">
+                    <h1 id="notice1_title"></h1>
+                    <hr>
+                    <div class="notice-container" id="notice1_content">로딩중...</div>
+                </div>
+                <div class="sectionBody">
                     <h1>최신 글</h1>
                     <hr>
                     <div id="list-loading">로딩중...</div>
@@ -33,6 +38,7 @@
                 </div>
                 <div class="sectionBody">
                     <button id="writePage" onclick="location.href='https://www.medimory.com/post'">글 쓰기</button>
+                    <button id="writeNotice1" onclick="location.href=`https://www.medimory.com/notice?id=notice1`">공지1 수정</button>
                 </div>
             </div>
         </section>
@@ -82,6 +88,61 @@
             } catch (error) {
                 console.error("모듈 로드 실패 :", error);
             }
+        }
+
+
+        async function readNotice(notice){
+            fetch("https://www.medimory.com/api/v1/notice", {
+                method: "POST",
+                body: notice
+            })
+                .then((response) => {
+                    return response.json();
+                })
+                .then((data) => {
+                    const table = data.Item;
+
+                    var title = table.Title;
+                    var content = table.Content;
+
+                    document.getElementById(`${notice}_title`).innerHTML = title;
+                    document.getElementById(`${notice}_content`).innerHTML = content;
+
+                    //코드 블럭 부분
+                    document.querySelectorAll('code').forEach(el => {
+                            hljs.highlightElement(el);
+                        });
+
+                        document.querySelectorAll('pre').forEach(pre => {
+                            var language = pre.getElementsByTagName('code')[0].classList[0].substring(9);
+                            var copyButton = document.createElement('button');
+                            copyButton.className = "copy-button";
+                            copyButton.innerHTML = `복사▼ ${language}`;
+                            copyButton.addEventListener("click", (e) => {
+                                var codeContent = e.currentTarget.parentNode.getElementsByTagName('code')[0];
+                                window.navigator.clipboard.writeText(codeContent.textContent);
+                            })
+                            pre.append(copyButton);
+                        });
+
+                        //미디어 엠베딩 부분
+                        document.querySelectorAll( 'oembed[url]' ).forEach( element => {
+                            // Create the <a href="..." class="embedly-card"></a> element that Embedly uses
+                            // to discover the media.
+                            const anchor = document.createElement( 'a' );
+                    
+                            anchor.setAttribute( 'href', element.getAttribute( 'url' ) );
+                            anchor.className = 'embedly-card';
+                    
+                            element.appendChild( anchor );
+                        } );
+                })
+                .catch((e) => {
+                    console.log(e);
+                    var content = `${notice}를 불러오는데 실패했습니다.`;
+                    document.getElementById(`${notice}_title`).innerHTML = notice;
+                    document.getElementById(`${notice}_content`).innerHTML = content;
+                })
         }
 
         async function readList(){
@@ -252,6 +313,7 @@
 
             document.body.classList.remove("hidden")
                   
+            readNotice("notice1");
             makeList();
             makeCategory();
         }
