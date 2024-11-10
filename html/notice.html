@@ -17,7 +17,7 @@
         <section id="section">
             <div class="section_box">
                 <div class="1 sectionBody">
-                    <h1>글 수정</h1>
+                    <h1 id="info">공지 수정</h1>
                     <hr>
                     <input type="hidden" id="imageURL">
                     <input type="hidden" id="uuid">
@@ -130,6 +130,9 @@
                             imageString += ","
                         }
 
+			const noticeNo = params.charAt(params.length - 1);
+
+			document.getElementById("info").innerHTML = `공지${noticeNo} 수정`;
                         document.getElementById("title").value = title;
                         currentEditor.setData(content);
                         document.getElementById("uuid").value = id;
