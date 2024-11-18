@@ -95,3 +95,7 @@ aside hr {
 .aside_box li a:hover {
     text-decoration : underline;
 }
+
+.visitor {
+    margin : 10px 0px 0px 0px;
+}
