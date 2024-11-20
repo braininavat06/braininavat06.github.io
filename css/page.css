@@ -186,7 +186,7 @@ figcaption {
 	outline-offset: -1px;
 }
 
-div:has(ins.adsbygoogle[data-ad-status="unfilled"]) {
+.sectionBody:has(ins.adsbygoogle[data-ad-status="unfilled"]) {
     display: none !important;
 }
 
