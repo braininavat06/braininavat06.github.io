@@ -185,3 +185,9 @@ figcaption {
 	font-size: .75em;
 	outline-offset: -1px;
 }
+
+ins.adsbygoogle[data-ad-status="unfilled"] {
+    display: none !important;
+}
+
+	
