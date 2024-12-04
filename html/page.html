@@ -10,7 +10,7 @@
     <!-- 미디어 엠베딩 -->
     <script async charset="utf-8" src="//cdn.embedly.com/widgets/platform.js"></script>
     <style>
-        body.hidden {
+        body.hidden, .pageUI {
             display: none;
         }
     </style>
@@ -27,9 +27,9 @@
                     <hr>
                     <div id="time"></div>
                     <div id="update"></div>
-                    <input type="password" id="password" placeholder="비밀번호">
-                    <button id="delete-button">삭제</button>
-                    <button id="update-button">수정</button>
+                    <input type="password" id="password1" placeholder="비밀번호" class="pageUI">
+                    <button id="delete-button" class="pageUI">삭제</button>
+                    <button id="update-button" class="pageUI">수정</button>
                 </div>
                 
                 <div class="sectionBody">
@@ -114,8 +114,25 @@
             return params;
         }
 
-        async function readPage(){
-            const params = await getQuery();
+
+        async function checkPrivate(params){
+            var isPrivate;
+            await fetch("https://www.medimory.com/api/v1/private_check", {
+                method: "POST",
+                body: params
+            })
+                .then((response) => {
+                    return response.json();
+                })
+                .then((data) => {
+                    isPrivate = data.Items[0].Private;
+                })
+
+            return isPrivate;
+        }
+
+
+        async function readPage(params){
             fetch("https://www.medimory.com/api/v1/read", {
                 method: "POST",
                 body: params
@@ -137,6 +154,10 @@
                         document.getElementById("update").innerHTML = `수정 시간 : ${update}`;
                         document.getElementById("content").innerHTML = content;
                         document.getElementById("category").innerHTML = `<${category}>`;
+
+                        document.getElementById("password1").classList.remove("pageUI");
+                        document.getElementById("update-button").classList.remove("pageUI");
+                        document.getElementById("delete-button").classList.remove("pageUI");
 
                         //코드 블럭 부분
                         document.querySelectorAll('code').forEach(el => {
@@ -178,6 +199,39 @@
                 })
         }
 
+
+        async function makePage(){
+            const params = await getQuery();
+            const isPrivate = await checkPrivate(params);
+
+            if(isPrivate == false) {
+                await readPage(params);
+            } else if(isPrivate == true) {
+                document.getElementById("content").innerHTML = `비밀글입니다. 암호를 입력해주세요.<br>(힌트 : 7번째 가족) <br> <input type="password" id="password2"> <button id="confirm_read">확인</button>`;
+
+                document.getElementById("confirm_read").addEventListener("click", () => {
+                var password = document.getElementById("password2").value;
+
+                fetch("https://www.medimory.com/api/v1/password_checkRead", {
+                        method: "POST",
+                        body: password
+                    })
+                        .then((response) => {
+                            return response.text();
+                        })
+                        .then((data) => {
+                            if(data == "success") {
+                                readPage(params);
+                            } else {
+                                alert("비밀번호가 일치하지 않습니다.")
+                            }
+                        })
+                        .catch((e) => {console.log(e);})
+                });
+            }
+        }
+
+
         async function deletePage() {
             const params = await getQuery();
             fetch("https://www.medimory.com/api/v1/delete", {
@@ -187,7 +241,7 @@
         }
 
         document.getElementById("delete-button").addEventListener("click", () => {
-        var password = document.getElementById("password").value;
+        var password = document.getElementById("password1").value;
 
         fetch("https://www.medimory.com/api/v1/password_check", {
                 method: "POST",
@@ -323,7 +377,7 @@
             });
 
             document.body.classList.remove("hidden")
-            readPage();
+            makePage();
             makeCategory();
         }
 

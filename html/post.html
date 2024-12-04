@@ -22,13 +22,18 @@
                     <input type="hidden" id="imageURL">
                     <input type="hidden" id="uuid">
                     <div class="inputBody">
-                        <h3>제목 : </h3><input type="text" id="title">
+                        <h3>제목 : </h3><input type="text" id="title" class="inputBox">
                     </div><br>
                     <div class="inputBody">
-                        <h3>비밀번호 : </h3><input type="password" id="password">
+                        <h3>비밀번호 : </h3><input type="password" id="password" class="inputBox">
                     </div><br>
                     <div class="inputBody">
                         <h3>카테고리 : </h3><select id="category-select"><option></option></select>
+                    </div><br>
+                    <div class="inputBody">
+                        <h3>비밀글 여부 : </h3>
+                        <div class="radio"><input type="radio" name="private_chk" value="true">비밀글</div>
+                        <div class="radio"><input type="radio" name="private_chk" value="false" checked="checked">공개글</div>
                     </div><br>
                     <div class="main-container">
                         <div class="editor-container editor-container_classic-editor" id="editor-container">
@@ -166,10 +171,61 @@
             }
         }
 
+
         async function makeCategoryOption(){
             const items = await readCategory();
             writeCategoryOption(items);
         }
+
+
+
+        async function makeRequest(uuid, title, content, category, currPrivate){
+            var imageURL = document.getElementById("imageURL").value.split(",");
+            imageURL.pop();
+
+            var editorContent = document.createElement("div");
+            editorContent.innerHTML = content;
+            var uploadImgArray = Array.from(editorContent.getElementsByTagName("img"));
+            var uploadURL = uploadImgArray.map((img) => {
+                return img.src
+            });
+
+            var difference = imageURL.filter((url) => {
+                return !uploadURL.includes(url);
+            });
+
+            if(difference.length != 0) {
+                fetch("https://www.medimory.com/api/v1/image_delete", {
+                    method : "POST",
+                    body : difference
+                })
+                    .catch((e) => {console.log(e)});
+            }
+
+            var requestBody = {
+                "uuid" : uuid,
+                "title" : title,
+                "content" : content,
+                "category" : category,
+                "img" : uploadURL,
+                "private" : currPrivate
+            }
+            return JSON.stringify(requestBody);
+        }
+
+        async function writePage(uuid, title, content, category, currPrivate) {
+            var requestBody = await makeRequest(uuid, title, content, category, currPrivate);
+            fetch("https://www.medimory.com/api/v1/post_process", {
+                    method : "POST",
+                    body : requestBody
+                })
+                    .then((response) => {return response.text();})
+                    .then((data) => {
+                        location.replace(`https://www.medimory.com/page?id=${data}`);
+                    })
+                    .catch((e) => {console.log(e)});
+        }
+
 
         document.getElementById("submit").addEventListener("click", () => {
             var uuid = document.getElementById("uuid").value;
@@ -178,51 +234,14 @@
             var content = currentEditor.getData();
             var category = document.getElementById("category-select").value;
 
-            async function makeRequest(uuid, title, content, category){
-                var imageURL = document.getElementById("imageURL").value.split(",");
-                imageURL.pop();
-
-                var editorContent = document.createElement("div");
-                editorContent.innerHTML = content;
-                var uploadImgArray = Array.from(editorContent.getElementsByTagName("img"));
-                var uploadURL = uploadImgArray.map((img) => {
-                    return img.src
-                });
-
-                var difference = imageURL.filter((url) => {
-                    return !uploadURL.includes(url);
-                });
-
-                if(difference.length != 0) {
-                    fetch("https://www.medimory.com/api/v1/image_delete", {
-                        method : "POST",
-                        body : difference
-                    })
-                        .catch((e) => {console.log(e)});
+            var currPrivate;
+            var radioPrivate = document.getElementsByName('private_chk');
+            radioPrivate.forEach((radio) => {
+                if(radio.checked) {
+                    if(radio.defaultValue == "true") {currPrivate = true}
+                    else if(radio.defaultValue == "false") {currPrivate = false}
                 }
-
-                var requestBody = {
-                    "uuid" : uuid,
-                    "title" : title,
-                    "content" : content,
-                    "category" : category,
-                    "img" : uploadURL
-                }
-                return JSON.stringify(requestBody);
-            }
-        
-            async function writePage(uuid, title, content, category) {
-                var requestBody = await makeRequest(uuid, title, content, category);
-                fetch("https://www.medimory.com/api/v1/post_process", {
-                        method : "POST",
-                        body : requestBody
-                    })
-                        .then((response) => {return response.text();})
-                        .then((data) => {
-                            location.replace(`https://www.medimory.com/page?id=${data}`);
-                        })
-                        .catch((e) => {console.log(e)});
-            }
+            });
 
             if(title == 0) {
                 alert("제목을 입력하세요.");
@@ -238,7 +257,7 @@
                 })
                 .then((data) => {
                     if(data == "success") {
-                        writePage(uuid, title, content, category);
+                        writePage(uuid, title, content, category, currPrivate);
                     } else {
                         alert("비밀번호가 일치하지 않습니다.")
                     }

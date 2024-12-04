@@ -103,8 +103,12 @@ section {
     margin : 0 10px 0 0;
 }
 
-.inputBody input {
+.inputBody .inputBox {
     width : 80%;
+}
+
+.inputBody .radio {
+    margin : 0 5px;
 }
 
 .inputBody select {
@@ -113,4 +117,8 @@ section {
 
 .ck-content p, ul, ol {
 	line-height: 1.6;
+}
+
+#password2 {
+    margin : 0 10px 0 0;
 }

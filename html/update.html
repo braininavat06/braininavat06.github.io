@@ -16,6 +16,11 @@
     <div class="section_package">
         <section id="section">
             <div class="section_box">
+                <div class="0 sectionBody" id="checkAdmin">
+                    글 수정 권한을 확인해주세요.<br>
+                    암호를 입력해야 글 내용을 확인할 수 있습니다.<br><br>
+                    <input type="password" id="password2"><button id="confirm_admin">확인</button>
+                </div>
                 <div class="1 sectionBody">
                     <h1>글 수정</h1>
                     <hr>
@@ -23,13 +28,18 @@
                     <input type="hidden" id="uuid">
                     <input type="hidden" id="timesort">
                     <div class="inputBody">
-                        <h3>제목 : </h3><input type="text" id="title">
+                        <h3>제목 : </h3><input type="text" id="title" class="inputBox">
                     </div><br>
                     <div class="inputBody">
-                        <h3>비밀번호 : </h3><input type="password" id="password">
+                        <h3>비밀번호 : </h3><input type="password" id="password" class="inputBox">
                     </div><br>
                     <div class="inputBody">
                         <h3>카테고리 : </h3><select id="category-select"><option></option></select>
+                    </div><br>
+                    <div class="inputBody">
+                        <h3>비밀글 여부 : </h3>
+                        <div class="radio"><input type="radio" name="private_chk" value="true">비밀글</div>
+                        <div class="radio"><input type="radio" name="private_chk" value="false">공개글</div>
                     </div><br>
                     <div class="main-container">
                         <div class="editor-container editor-container_classic-editor" id="editor-container">
@@ -110,8 +120,7 @@
             return params;
         }
 
-        async function readPage(){
-            const params = await getQuery();
+        async function readPage(params){
             fetch("https://www.medimory.com/api/v1/read", {
                 method: "POST",
                 body: params
@@ -135,6 +144,7 @@
                         if(imageString != '') {
                             imageString += ","
                         }
+                        var currPrivate = table.Private;
 
                         document.getElementById("title").value = title;
                         currentEditor.setData(content);
@@ -142,6 +152,9 @@
                         document.getElementById("timesort").value = timesort;
                         document.getElementById("uuid").value = id;
                         document.getElementById("imageURL").value = imageString;
+                        if(currPrivate == true) {document.getElementsByName('private_chk')[0].checked = true;}
+                        else if(currPrivate == false) {document.getElementsByName('private_chk')[1].checked = true;}
+
                     } else {
                         var content = "존재하지 않는 글이거나 서버 오류입니다.";
                         alert(content);
@@ -154,6 +167,32 @@
                     location.replace("https://www.medimory.com/");
                 })
         }
+
+        async function makePage(){
+            const params = await getQuery();
+
+            document.getElementById("confirm_admin").addEventListener("click", () => {
+            var password = document.getElementById("password2").value;
+
+            fetch("https://www.medimory.com/api/v1/password_check", {
+                    method: "POST",
+                    body: password
+                })
+                    .then((response) => {
+                        return response.text();
+                    })
+                    .then((data) => {
+                        if(data == "success") {
+                            readPage(params);
+                            document.getElementById("checkAdmin").style.display = 'none';
+                        } else {
+                            alert("비밀번호가 일치하지 않습니다.")
+                        }
+                    })
+                    .catch((e) => {console.log(e);})
+            });
+        }
+
 
         async function readCategory(){
             const response = await fetch("https://www.medimory.com/api/v1/category", {
@@ -213,6 +252,55 @@
             writeCategoryOption(items);
         }
 
+
+        async function makeRequest(uuid, timesort, title, content, category, currPrivate){
+            var imageURL = document.getElementById("imageURL").value.split(",");
+            imageURL.pop();
+
+            var editorContent = document.createElement("div");
+            editorContent.innerHTML = content;
+            var uploadImgArray = Array.from(editorContent.getElementsByTagName("img"));
+            var uploadURL = uploadImgArray.map((img) => {
+                return img.src
+            });
+
+            var difference = imageURL.filter((url) => {
+                return !uploadURL.includes(url);
+            });
+
+            if(difference.length != 0) {
+                fetch("https://www.medimory.com/api/v1/image_delete", {
+                    method : "POST",
+                    body : difference
+                })
+                    .catch((e) => {console.log(e)});
+            }
+
+            var requestBody = {
+                "uuid" : uuid,
+                "timesort" : timesort,
+                "title" : title,
+                "content" : content,
+                "category" : category,
+                "img" : uploadURL,
+                "private" : currPrivate
+            }
+            return JSON.stringify(requestBody);
+        }
+
+        async function writePage(uuid, timesort, title, content, category, currPrivate) {
+            var requestBody = await makeRequest(uuid, timesort, title, content, category, currPrivate);
+            fetch("https://www.medimory.com/api/v1/update_process", {
+                    method : "POST",
+                    body : requestBody
+                })
+                    .then((response) => {return response.text();})
+                    .then((data) => {
+                        location.replace(`https://www.medimory.com/page?id=${data}`);
+                    })
+                    .catch((e) => {console.log(e)});
+        }
+
         document.getElementById("submit").addEventListener("click", () => {
             var uuid = document.getElementById("uuid").value;
             var timesort = document.getElementById("timesort").value;
@@ -221,53 +309,14 @@
             var content = currentEditor.getData();
             var category = document.getElementById("category-select").value;
 
-
-            async function makeRequest(uuid, timesort, title, content, category){
-                var imageURL = document.getElementById("imageURL").value.split(",");
-                imageURL.pop();
-
-                var editorContent = document.createElement("div");
-                editorContent.innerHTML = content;
-                var uploadImgArray = Array.from(editorContent.getElementsByTagName("img"));
-                var uploadURL = uploadImgArray.map((img) => {
-                    return img.src
-                });
-
-                var difference = imageURL.filter((url) => {
-                    return !uploadURL.includes(url);
-                });
-
-                if(difference.length != 0) {
-                    fetch("https://www.medimory.com/api/v1/image_delete", {
-                        method : "POST",
-                        body : difference
-                    })
-                        .catch((e) => {console.log(e)});
+            var currPrivate;
+            var radioPrivate = document.getElementsByName('private_chk');
+            radioPrivate.forEach((radio) => {
+                if(radio.checked) {
+                    if(radio.defaultValue == "true") {currPrivate = true}
+                    else if(radio.defaultValue == "false") {currPrivate = false}
                 }
-
-                var requestBody = {
-                    "uuid" : uuid,
-                    "timesort" : timesort,
-                    "title" : title,
-                    "content" : content,
-                    "category" : category,
-                    "img" : uploadURL
-                }
-                return JSON.stringify(requestBody);
-            }
-        
-            async function writePage(uuid, timesort, title, content, category) {
-                var requestBody = await makeRequest(uuid, timesort, title, content, category);
-                fetch("https://www.medimory.com/api/v1/update_process", {
-                        method : "POST",
-                        body : requestBody
-                    })
-                        .then((response) => {return response.text();})
-                        .then((data) => {
-                            location.replace(`https://www.medimory.com/page?id=${data}`);
-                        })
-                        .catch((e) => {console.log(e)});
-            }
+            });
 
             if(title == 0) {
                 alert("제목을 입력하세요.");
@@ -283,7 +332,7 @@
                 })
                 .then((data) => {
                     if(data == "success") {
-                        writePage(uuid, timesort, title, content, category);
+                        writePage(uuid, timesort, title, content, category, currPrivate);
                     } else {
                         alert("비밀번호가 일치하지 않습니다.")
                     }
@@ -318,7 +367,7 @@
             document.body.classList.remove("hidden")
 
             await makeCategoryOption();
-            readPage();
+            makePage();
         }
 
         loadPage();
