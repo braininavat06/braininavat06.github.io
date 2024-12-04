@@ -207,27 +207,28 @@
             if(isPrivate == false) {
                 await readPage(params);
             } else if(isPrivate == true) {
-                document.getElementById("content").innerHTML = `비밀글입니다. 암호를 입력해주세요.<br>(힌트 : 7번째 가족) <br> <input type="password" id="password2"> <button id="confirm_read">확인</button>`;
+                document.getElementById("content").innerHTML = `비밀글입니다. 암호를 입력해주세요.<br>(힌트 : 7번째 가족 이름) <br> <input type="password" id="password2"> <button id="confirm_read">확인</button>`;
+                document.getElementById("password2").focus();
 
                 document.getElementById("confirm_read").addEventListener("click", () => {
-                var password = document.getElementById("password2").value;
+                    var password = document.getElementById("password2").value;
 
-                fetch("https://www.medimory.com/api/v1/password_checkRead", {
-                        method: "POST",
-                        body: password
-                    })
-                        .then((response) => {
-                            return response.text();
+                    fetch("https://www.medimory.com/api/v1/password_checkRead", {
+                            method: "POST",
+                            body: password
                         })
-                        .then((data) => {
-                            if(data == "success") {
-                                readPage(params);
-                            } else {
-                                alert("비밀번호가 일치하지 않습니다.")
-                            }
-                        })
-                        .catch((e) => {console.log(e);})
-                });
+                            .then((response) => {
+                                return response.text();
+                            })
+                            .then((data) => {
+                                if(data == "success") {
+                                    readPage(params);
+                                } else {
+                                    alert("비밀번호가 일치하지 않습니다.")
+                                }
+                            })
+                            .catch((e) => {console.log(e);})
+                })
             }
         }
 
