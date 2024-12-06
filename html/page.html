@@ -132,6 +132,8 @@
                 })
                 .catch((e) => {
                     console.log(e);
+                    var content = "존재하지 않는 글이거나 서버 오류입니다.";
+                    document.getElementById("content").innerHTML = content;
                 })
 
             return isPrivate;
