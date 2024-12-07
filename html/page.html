@@ -129,8 +129,10 @@
                     return response.json();
                 })
                 .then((data) => {
+                    console.log(`2 : ${data}`);
+                    console.log(`3 : ${data.Items}`);
                     isPrivate = data.Items[0].Private;
-                    console.log(`2 : ${isPrivate}`);
+                    console.log(`4 : ${isPrivate}`);
                 })
                 .catch((e) => {
                     console.log(e);
@@ -138,7 +140,7 @@
                     document.getElementById("content").innerHTML = content;
                 })
 
-            console.log(`3 : ${isPrivate}`);
+            console.log(`5 : ${isPrivate}`);
             return isPrivate;
         }
 
