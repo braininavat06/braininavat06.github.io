@@ -205,9 +205,12 @@
                 const li = document.createElement('li');
                 li.className = "post-li";
 
-                const postContainer = document.createElement('div');
+                const containerWithHr = document.createElement('div');
+                containerWithHr.className = "post-hr-container";
+
+                const postContainer = document.createElement('a');
                 postContainer.className = "post-container";
-                postContainer.setAttribute ("onClick", `window.location.href= "https://www.medimory.com/page?id=${items[i].Id}"`);
+                postContainer.href = `https://www.medimory.com/page?id=${items[i].Id}`;
 
                 const postTitle = document.createElement('p');
                 postTitle.className = "post-title";
@@ -228,8 +231,9 @@
 
                 const hr = document.createElement('hr');
 
-                postContainer.append(postCategory, postTitle, postTime, updateTime, hr);
-                li.append(postContainer);
+                postContainer.append(postCategory, postTitle, postTime, updateTime);
+                containerWithHr.append(postContainer, hr);
+                li.append(containerWithHr);
                 ul.append(li);
             }
         }
