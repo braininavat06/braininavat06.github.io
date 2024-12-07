@@ -62,8 +62,11 @@
 
     .post-container {
         background-color: white;
+        margin: 0px;
+    }
+
+    .post-hr-container {
         margin: 0px 15px;
-        cursor: pointer;
     }
 
     .notice-container {
@@ -103,8 +106,11 @@
 
     .post-container {
         background-color: white;
+        margin: 0px;
+    }
+
+    .post-hr-container {
         margin: 0px 15px;
-        cursor: pointer;
     }
 
     .notice-container {
@@ -235,11 +241,17 @@ figcaption {
     font-size : 14px;
 }
 
+.post-container {
+    display : block;
+    text-decoration : none;
+    color : black;
+}
+
 .post-container:hover > .post-title {
     text-decoration: underline;
 }
 
-.post-container hr {
+.post-hr-container hr {
     margin-top : 20px;
     margin-bottom : 0px;
 }
