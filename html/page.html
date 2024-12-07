@@ -125,11 +125,12 @@
                 body: params
             })
                 .then((response) => {
+                    console.log(`1 : ${response}`);
                     return response.json();
                 })
                 .then((data) => {
                     isPrivate = data.Items[0].Private;
-                    console.log(isPrivate);
+                    console.log(`2 : ${isPrivate}`);
                 })
                 .catch((e) => {
                     console.log(e);
@@ -137,7 +138,7 @@
                     document.getElementById("content").innerHTML = content;
                 })
 
-            console.log(isPrivate);
+            console.log(`3 : ${isPrivate}`);
             return isPrivate;
         }
 
