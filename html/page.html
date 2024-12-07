@@ -129,6 +129,7 @@
                 })
                 .then((data) => {
                     isPrivate = data.Items[0].Private;
+                    console.log(isPrivate);
                 })
                 .catch((e) => {
                     console.log(e);
