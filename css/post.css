@@ -95,6 +95,14 @@ section {
     margin : 0 auto;
 }
 
+.sectionBody h2 {
+    margin : 0 auto;
+}
+
+.sectionBody h3 {
+    margin : 0 auto;
+}
+
 .inputBody {
 	display : flex;
 }
