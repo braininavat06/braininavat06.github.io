@@ -1,3 +1,3 @@
-const version = 95;
+const version = 92;
 
 export {version};

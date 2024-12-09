@@ -101,10 +101,6 @@ section {
     margin : 0 auto;
 }
 
-.sectionBody h2 {
-    margin : 0 auto;
-}	    
-
 .sectionBody h3 {
     margin : 0 auto;
 }
@@ -192,6 +188,37 @@ figcaption {
 
 .sectionBody:has(ins.adsbygoogle[data-ad-status="unfilled"]) {
     display: none !important;
+}
+
+figure.table:has(table.ck-table-resized) {
+    max-width : 95%;
+}
+
+.table {
+	margin: 0.9em auto;
+	display: table;
+
+	& table {
+		border-collapse: collapse;
+		border-spacing: 0;
+
+		width: 100%;
+		height: 100%;
+
+		border: 1px double hsl(0, 0%, 70%);
+
+		& td,
+		& th {
+			min-width: 2em;
+			padding: .4em;
+			border: 1px solid hsl(0, 0%, 75%);
+		}
+
+		& th {
+			font-weight: bold;
+			background: hsla(0, 0%, 0%, 5%);
+		}
+	}
 }
 
 	
