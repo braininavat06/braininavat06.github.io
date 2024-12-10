@@ -34,6 +34,16 @@ pre, code, code span, code p {
     <a href="/"><img id="logo" src="" alt="메디모리 | Medimory"/></a>
     <h1><a class="logoText" href="/">메디모리</a></h1>
 </div>
+
+<script>
+    window.onload = function(){
+        var sharp = window.location.hash;
+
+        if(sharp) {
+            location.href = sharp;
+        }
+    };
+</script>
 `,
 
 "aside" : 
