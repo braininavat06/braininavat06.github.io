@@ -42,6 +42,11 @@
 
 
 /* 공통 */
+* {
+ scroll-margin-top : 45px;
+ scroll-behavior: smooth;
+}
+
 body {
     padding-top : var(--nav-height);
 }
