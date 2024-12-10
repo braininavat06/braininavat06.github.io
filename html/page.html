@@ -198,9 +198,8 @@
                         var content = "존재하지 않는 글이거나 서버 오류입니다.";
                         document.getElementById("content").innerHTML = content;
                     }
-                    return 1;
                 })
-                .then((data) => {
+                .then(() => {
                     if(window.location.hash) {
                         location.href = window.location.hash;
                     }
