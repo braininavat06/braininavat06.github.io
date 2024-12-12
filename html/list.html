@@ -105,16 +105,16 @@
 
         async function setCounterCookie() {
             var tomorrow = new Date();
-            tomorrow.setDate(tomorrow.getUTCDate() + 1);
-            tomorrow.setUTCHours(0);
-            tomorrow.setUTCMinutes(0);
-            tomorrow.setUTCSeconds(0);
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            tomorrow.setHours(0);
+            tomorrow.setMinutes(0);
+            tomorrow.setSeconds(0);
             var tomorrowUTC = tomorrow.toUTCString();
 
             var visited = getCookie("visited");
 
             if(visited != 1) {
-                document.cookie = `visited=1; Expires=${tomorrowUTC}; Secure; path='/'; Domain=.medimory.com`
+                document.cookie = `visited=1; Secure; Expires=${tomorrowUTC}; Path=/; Domain=medimory.com`;
                 fetch("https://www.medimory.com/api/v1/visit_up", {
                     method: "POST",
                     body: "medimory"
