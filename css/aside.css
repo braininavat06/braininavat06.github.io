@@ -96,6 +96,6 @@ aside hr {
     text-decoration : underline;
 }
 
-.visitor {
-    margin : 10px 0px 0px 0px;
+#visitor {
+    margin : 10px 0;
 }

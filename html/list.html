@@ -113,7 +113,7 @@
 
             var visited = getCookie("visited");
 
-            if(visited != 1) {
+            if(visited != 1 && isProduction) {
                 document.cookie = `visited=1; Secure; Expires=${tomorrowUTC}; Path=/; Domain=medimory.com`;
                 fetch("https://www.medimory.com/api/v1/visit_up", {
                     method: "POST",
