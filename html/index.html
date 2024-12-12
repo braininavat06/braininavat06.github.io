@@ -153,7 +153,7 @@
             var visited = getCookie("visited");
 
             if(visited != 1) {
-                document.cookie = `visited=1; Expires=${tomorrowUTC}; Secure; path='/'`
+                document.cookie = `visited=1; Expires=${tomorrowUTC}; Secure; path='/'; Domain=.medimory.com`
                 fetch("https://www.medimory.com/api/v1/visit_up", {
                     method: "POST",
                     body: "medimory"
@@ -171,7 +171,6 @@
                     return response.json();
                 })
                 .then((data) => {
-                    console.log(data);
                     document.getElementById("visitor").innerHTML = `오늘 ${data.Today} · 전체 ${data.Total}`
                 })
                 .catch((e) => {console.log(e)})
