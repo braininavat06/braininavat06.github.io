@@ -41,7 +41,7 @@ pre, code, code span, code p {
 <link id="aside-css" rel="stylesheet" href="" crossorigin="anonymous">
 
 <div class="aside_box">
-    <div class="visitor"><a href="https://hits.seeyoufarm.com"><img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fwww.medimory.com&count_bg=%23D8D8D8&title_bg=%232E2E2E&icon=&icon_color=%23E7E7E7&title=%EB%A9%94%EB%94%94%EB%AA%A8%EB%A6%AC&edge_flat=false"/></a></div>
+    <p id="visitor">오늘 0 · 전체 0</p>
     <h1>카테고리</h1>
     <hr>
     <ul>

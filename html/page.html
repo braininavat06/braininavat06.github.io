@@ -111,12 +111,63 @@
             }
         }
 
-        
+        function getCookie(cookieName) {
+            cookieName = `${cookieName}=`;
+            let cookieData = document.cookie;
+
+            let cookieValue = "";
+            let start = cookieData.indexOf(cookieName);
+
+            if (start !== -1) {
+                start += cookieName.length;
+                let end = cookieData.indexOf(";", start);
+                if (end === -1) end = cookieData.length;
+                cookieValue = cookieData.substring(start, end);
+            }
+
+            return unescape(cookieValue);
+        }
+
+        async function setCounterCookie() {
+            var tomorrow = new Date();
+            tomorrow.setDate(tomorrow.getUTCDate() + 1);
+            tomorrow.setUTCHours(0);
+            tomorrow.setUTCMinutes(0);
+            tomorrow.setUTCSeconds(0);
+            var tomorrowUTC = tomorrow.toUTCString();
+
+            var visited = getCookie("visited");
+
+            if(visited != 1) {
+                document.cookie = `visited=1; Expires=${tomorrowUTC}; Secure; path='/'`
+                fetch("https://www.medimory.com/api/v1/visit_up", {
+                    method: "POST",
+                    body: "medimory"
+                })
+                    .catch((e) => {console.log(e)})
+            }
+        }
+
+        async function getCounter() {
+            fetch("https://www.medimory.com/api/v1/visit_read", {
+                method: "POST",
+                body: "medimory"
+            })
+                .then((response) => {
+                    return response.json();
+                })
+                .then((data) => {
+                    console.log(data);
+                    document.getElementById("visitor").innerHTML = `오늘 ${data.Today} · 전체 ${data.Total}`
+                })
+                .catch((e) => {console.log(e)})
+        }
+
+    
         async function getQuery(){
             const params = new URLSearchParams(window.location.search).get("id");
             return params;
         }
-
 
         async function checkPrivate(params){
             var isPrivate;
@@ -367,6 +418,8 @@
             await loadVersion();
             await loadModules();
 
+            setCounterCookie();
+
             routeCheck("css", "page-css", "/css/page.css?v=" + version);
             document.getElementById("head").insertAdjacentHTML("beforeend", htmlModule.head);
             document.getElementById("nav").innerHTML = htmlModule.nav;
@@ -390,6 +443,8 @@
             });
 
             document.body.classList.remove("hidden")
+
+            getCounter();
             makePage();
             makeCategory();
         }
