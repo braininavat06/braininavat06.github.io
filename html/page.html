@@ -53,21 +53,18 @@
                          data-ad-format="autorelaxed"
                          data-ad-client="ca-pub-8581972532015406"
                          data-ad-slot="5984259388"></ins>
-                </div>
-
-                <script>
-                    window.onload = function() {
-                        (adsbygoogle = window.adsbygoogle || []).push({});
-                        (adsbygoogle = window.adsbygoogle || []).push({});
-                    }
-                </script>
-                
+                </div>  
             </div>
         </section>
     </div>
     <footer id="footer"></footer>
 
     <script type="module">
+        async function loadAds() {
+            adsbygoogle = window.adsbygoogle || []).push({});
+            adsbygoogle = window.adsbygoogle || []).push({});
+        }
+        
         const isProduction = !(
             window.location.hostname === 'localhost' ||
             window.location.hostname === '127.0.0.1' ||
@@ -444,6 +441,7 @@
 
             document.body.classList.remove("hidden")
 
+            loadAds();
             getCounter();
             makePage();
             makeCategory();
