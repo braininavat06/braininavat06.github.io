@@ -42,7 +42,7 @@ pre, code, code span, code p {
 
 <div class="aside_box">
     <p id="visitor">오늘 0 · 전체 0</p>
-    <h1>카테고리</h1>
+    <h2>카테고리</h2>
     <hr>
     <ul>
         <li><a href="https://www.medimory.com/list?id=전체글">전체 글 보기</a></li>
