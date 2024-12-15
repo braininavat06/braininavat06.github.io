@@ -181,6 +181,8 @@
                     console.log(e);
                     var content = "존재하지 않는 글이거나 서버 오류입니다.";
                     document.getElementById("content").innerHTML = content;
+                    alert("존재하지 않는 글이거나 서버 오류입니다. 메인 페이지로 돌아갑니다.");
+                    location.replace("https://www.medimory.com");
                 })
             return isPrivate;
         }
