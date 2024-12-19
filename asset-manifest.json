@@ -1,16 +1,16 @@
 {
   "files": {
     "main.css": "/static/css/main.9f1df259.css",
-    "main.js": "/static/js/main.cf44e18a.js",
+    "main.js": "/static/js/main.f4abe107.js",
     "static/js/488.5a658695.chunk.js": "/static/js/488.5a658695.chunk.js",
     "static/media/medimory-logo.png": "/static/media/medimory-logo.4e23c494fa3b5edc5177.png",
     "index.html": "/index.html",
     "main.9f1df259.css.map": "/static/css/main.9f1df259.css.map",
-    "main.cf44e18a.js.map": "/static/js/main.cf44e18a.js.map",
+    "main.f4abe107.js.map": "/static/js/main.f4abe107.js.map",
     "488.5a658695.chunk.js.map": "/static/js/488.5a658695.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.9f1df259.css",
-    "static/js/main.cf44e18a.js"
+    "static/js/main.f4abe107.js"
   ]
 }
