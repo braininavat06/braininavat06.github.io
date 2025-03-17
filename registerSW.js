@@ -1,1 +1,0 @@
-if('serviceWorker' in navigator) {window.addEventListener('load', () => {navigator.serviceWorker.register('https://braininavat06.github.io/sw.js', { scope: 'https://braininavat06.github.io/' })})}
