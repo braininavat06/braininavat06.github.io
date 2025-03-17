@@ -1,5 +1,4 @@
-# https://www.robotstxt.org/robotstxt.html
 User-agent: *
-Disallow:
+Disallow: /*.lambda-url.ap-northeast-2.on.aws/
 
 Sitemap: https://www.medimory.com/sitemap.xml
